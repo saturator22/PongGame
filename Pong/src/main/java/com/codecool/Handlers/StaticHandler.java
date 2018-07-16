@@ -17,12 +17,10 @@ public class StaticHandler implements HttpHandler {
 
         // get file path from url
         URI uri = exchange.getRequestURI();
-        System.out.println("GET " + uri.getPath());
         String path = "." + uri.getPath();
         // get file from resources folder, see: https://www.mkyong.com/java/java-read-a-file-from-resources-folder/
         ClassLoader classLoader = getClass().getClassLoader();
         URL fileURL = classLoader.getResource(path);
-//        OutputStream os = exchange.getResponseBody();
         if (fileURL == null) {
             // Object does not exist or is not a file: reject with 404 error.
             send404(exchange);

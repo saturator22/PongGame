@@ -13,7 +13,6 @@ public class PongHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String html = loadSite("static/html/index.html");
-        System.out.println(html);
         sendResponse(exchange, html);
     }
 
