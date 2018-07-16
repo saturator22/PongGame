@@ -1,6 +1,8 @@
 package com.codecool;
 
+import com.codecool.Handlers.PongHandler;
 import com.codecool.Handlers.StaticHandler;
+import com.codecool.Handlers.TestHandler;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 
@@ -12,6 +14,7 @@ public class App {
         // set routes
 //        server.createContext("/", new MainMenu());
         server.createContext("/test", new TestHandler());
+        server.createContext("/pong", new PongHandler());
         server.createContext("/static", new StaticHandler());
         server.setExecutor(null); // creates a default executor
         // start listening
