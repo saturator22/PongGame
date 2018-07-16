@@ -1,10 +1,8 @@
 var intervalId;
-
 function loadPage() {
     var text = document.createElement("h1");
     text.id = "text";
     text.innerHTML = "loading";
-
     var input = document.createElement("input");
     input.id = "input";
 
@@ -18,32 +16,34 @@ function loadPage() {
     document.body.appendChild(input);
     document.body.appendChild(button);
 
-//    intervalId = setInterval(reloadData, 30);
+    intervalId = setInterval(reloadData, 1200);
 }
 
-function sendInput() {
+function reloadData() { // GET
+    console.log("Reload data");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange =
-    function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("text").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("POST", "/test", true);
-    console.log(xhttp);
+        function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("text").innerHTML = this.responseText;
+            }
+        };
+    xhttp.open("GET", "/test", true);
     xhttp.send();
 }
 
-function reloadData() {
+function sendInput() { // POST
     var xhttp = new XMLHttpRequest();
     var url = "/test";
-    var params = "{\"input\": \"" + document.getElementById("input").value + "\"}";
-    xhttp.open("GET", url, true);
+    var inputElement = document.getElementById("input");
+    var params = JSON.stringify({"input" : inputElement.value});
+    console.log("Send input as JSON: " + params);
+    xhttp.open("POST", url, true);
     xhttp.setRequestHeader('User-Input', params);
     xhttp.onreadystatechange =
     function() {
         if (this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
+            inputElement.value = "";
         }
     };
     xhttp.send(params);
