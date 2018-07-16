@@ -29,14 +29,14 @@ function sendInput() {
             document.getElementById("text").innerHTML = this.responseText;
         }
     };
-    xhttp.open("POST", "/PongGame/static/testFiles/test.json", true);
+    xhttp.open("POST", "/test", true);
     console.log(xhttp);
     xhttp.send();
 }
 
 function reloadData() {
     var xhttp = new XMLHttpRequest();
-    var url = "/pong";
+    var url = "/test";
     var params = "{\"input\": \"" + document.getElementById("input").value + "\"}";
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('User-Input', params);
