@@ -12,6 +12,7 @@ function loadPage() {
             sendInput();
         }
     button.id = "button";
+    button.innerHTML = "Submit";
     document.body.appendChild(text);
     document.body.appendChild(input);
     document.body.appendChild(button);
