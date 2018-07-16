@@ -1,5 +1,6 @@
 package com.codecool;
 
+import com.codecool.Handlers.StaticHandler;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 
@@ -11,7 +12,7 @@ public class App {
         // set routes
 //        server.createContext("/", new MainMenu());
         server.createContext("/test", new TestHandler());
-//        server.createContext("/mentorShop", new MentorShopHandler());
+        server.createContext("/static", new StaticHandler());
         server.setExecutor(null); // creates a default executor
         // start listening
         server.start();
