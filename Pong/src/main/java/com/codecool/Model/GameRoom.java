@@ -4,13 +4,11 @@ import com.google.gson.Gson;
 
 public class GameRoom {
     private Ball ball;
-    private final float racketHeight;
     private Player firstPlayer;
     private Player secondPlayer;
 
-    public GameRoom(Ball ball, float racketHeight, Player firstPlayer, Player secondPlayer) {
+    public GameRoom(Ball ball, Player firstPlayer, Player secondPlayer) {
         this.ball = ball;
-        this.racketHeight = racketHeight;
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
     }
@@ -21,10 +19,6 @@ public class GameRoom {
 
     public void setBall(Ball ball) {
         this.ball = ball;
-    }
-
-    public float getRacketHeight() {
-        return racketHeight;
     }
 
     public Player getFirstPlayer() {
