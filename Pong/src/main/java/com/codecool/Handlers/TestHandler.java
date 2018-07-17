@@ -2,6 +2,7 @@ package com.codecool.Handlers;
 
 import com.codecool.Model.Ball;
 import com.codecool.Model.GameRoom;
+import com.codecool.Model.Player;
 import com.codecool.Model.TextInput;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -29,6 +30,7 @@ public class TestHandler implements HttpHandler {
 
         if (method.equals(GET_METHOD)) {
             updateGameroom();
+            updateScore();
             sendResponse(httpExchange, gameRoom.toJSON());
         } else if (method.equals(POST_METHOD)) {
             TextInput input = readAndParseJSON(httpExchange);
@@ -37,6 +39,24 @@ public class TestHandler implements HttpHandler {
             sendResponse(httpExchange, textResponse);
         }
     }
+
+    public void updateScore() {
+        float player1BoardEdge = 0;
+        float player2BoardEdge = 800;
+
+        float xPos = gameRoom.getBall().getxPos();
+
+        if (xPos >= player1BoardEdge) {
+            gameRoom.getSecondPlayer().addPoint();
+            gameRoom.getBall().reset();
+
+        } else if (xPos >= player2BoardEdge) {
+            gameRoom.getFirstPlayer().addPoint();
+            gameRoom.getBall().reset();
+        }
+    }
+
+
 
     public void updateGameroom() {
         Ball ball = gameRoom.getBall();
