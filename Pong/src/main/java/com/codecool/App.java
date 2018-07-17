@@ -11,7 +11,7 @@ public class App {
 
         // set routes
 //        server.createContext("/", new MainMenu());
-        server.createContext("/test", new TestHandler());
+//        server.createContext("/test", new TestHandler());
         server.createContext("/static", new StaticHandler());
         server.setExecutor(null); // creates a default executor
         // start listening
