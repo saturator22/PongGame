@@ -26,6 +26,10 @@ public class Player {
         this.racketWidth = racketWidth;
     }
 
+    public void addPoint() {
+        score += 1;
+    }
+
     public float getRacketYPos() {
         return racketYPos;
     }
