@@ -47,10 +47,10 @@ class GameBoard {
         let keyCode = event.keyCode;
 
         if (keyCode === 38 || keyCode === 87) {
-            this.racket1.yPostion -= 5;
+            this.racket1.yPostion -= 10;
             this.prepareGameBoard();
         } else if (keyCode === 40 || keyCode === 83){
-            this.racket1.yPostion += 5;
+            this.racket1.yPostion += 10;
             this.prepareGameBoard();
         }
     }
