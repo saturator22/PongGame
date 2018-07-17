@@ -15,7 +15,7 @@ class GameBoard {
   }
 
   renderBoard(board) {
-    const parentNode = document.getElementById('board');
+    const parentNode = document.getElementById('boardContainer');
     parentNode.appendChild(board);
   }
 }
