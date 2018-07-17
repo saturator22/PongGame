@@ -1,5 +1,6 @@
 package com.codecool.Handlers;
 
+import com.codecool.Model.GameRoom;
 import com.codecool.Model.TextInput;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -13,7 +14,12 @@ import java.io.OutputStream;
 public class TestHandler implements HttpHandler {
     final String GET_METHOD = "GET";
     final String POST_METHOD = "POST";
-    private String textResponse = "LOADING";
+//    private String textResponse = "LOADING";
+    GameRoom gameRoom;
+
+    public TestHandler(GameRoom gameRoom) {
+        this.gameRoom = gameRoom;
+    }
 
     @Override
     public void handle(HttpExchange httpExchange) {
@@ -21,7 +27,8 @@ public class TestHandler implements HttpHandler {
         String method = httpExchange.getRequestMethod();
 
         if (method.equals(GET_METHOD)) {
-            sendResponse(httpExchange, textResponse);
+
+            sendResponse(httpExchange, this.gameRoom.toJSON());
         } else if (method.equals(POST_METHOD)) {
             TextInput input = readAndParseJSON(httpExchange);
 

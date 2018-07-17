@@ -2,13 +2,13 @@ package com.codecool.Model;
 
 public class GameRoom {
     private Ball ball;
-    private final float racketHeight;
+//    private final float racketHeight;
     private Player firstPlayer;
     private Player secondPlayer;
 
-    public GameRoom(Ball ball, float racketHeight, Player firstPlayer, Player secondPlayer) {
+    public GameRoom(Ball ball, Player firstPlayer, Player secondPlayer) {
         this.ball = ball;
-        this.racketHeight = racketHeight;
+//        this.racketHeight = racketHeight;
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
     }
@@ -21,9 +21,9 @@ public class GameRoom {
         this.ball = ball;
     }
 
-    public float getRacketHeight() {
-        return racketHeight;
-    }
+//    public float getRacketHeight() {
+//        return racketHeight;
+//    }
 
     public Player getFirstPlayer() {
         return firstPlayer;
