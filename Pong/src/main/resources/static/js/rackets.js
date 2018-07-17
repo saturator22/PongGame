@@ -45,31 +45,45 @@ class GameBoard {
 
     renderData() {
         var xhttp = new XMLHttpRequest();
+        let scope = this;
+
         xhttp.onreadystatechange =
         function() {
             if (this.readyState == 4 && this.status == 200) {
                 let parsedJson = JSON.parse(this.responseText);
+                console.log(parsedJson.firstPlayer.racketYPos);
+                scope.updateGameBoard(parsedJson);
             }
         };
         xhttp.open("GET", "/test", true);
         xhttp.send();
+        // debugger;
+        this.prepareGameBoard();
+        // console.log(this);
+    }
 
+    updateGameBoard(parsedJson) {
+        this.updateRackets(parsedJson);
+    }
+
+    // updateBall(parsedJson) {
+    //     this. = parsedJson.
+    // }
+
+    updateRackets(parsedJson) {
+        console.log(this.racket1)
+        this.racket1.yPosition = parsedJson.firstPlayer.racketYPos;
+        this.racket2.yPosition = parsedJson.secondPlayer.racketYPos;
     }
 
     sendInput(direction) { // POST
 
         var xhttp = new XMLHttpRequest();
         var url = "/test";
-        // var inputElement = document.getElementById("input");
         var params = JSON.stringify({"input" : direction});
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader('User-Input', "input");
-        // xhttp.onreadystatechange =
-        // function() {
-        //     if (this.readyState == 4 && this.status == 200) {
-        //         inputElement.value = "";
-        //     }
-        // };
+
         xhttp.send(params);
     }
 
@@ -77,20 +91,16 @@ class GameBoard {
         let keyCode = event.keyCode;
 
         if (keyCode === 38 || keyCode === 87) {
-            this.racket1.yPosition -= 10;
             this.sendInput("up");
-            this.prepareGameBoard();
         } else if (keyCode === 40 || keyCode === 83){
-            this.racket1.yPosition += 10;
             this.sendInput("down");
-            this.prepareGameBoard();
         }
     }
 }
 
 window.onload = function() {
     let gameBoard = new GameBoard;
-    let reloadPage = setInterval(gameBoard.renderData(), 40);
+    let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 40);
 
     gameBoard.prepareGameBoard();
     
