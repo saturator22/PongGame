@@ -2,15 +2,28 @@ package com.codecool.Model;
 
 public class Player {
     private float racketYPos;
+    private final float racketXPos;
     private String name;
     private int score;
-    private int racketLength;
+    private final float racketHeight;
+    private final float racketWidth;
 
     public Player(float racketYPos, String name) {
         this.racketYPos = racketYPos;
+        this.racketXPos = 5; // Default value
         this.name = name;
-        this.racketLength = 60;
-        this.score = 0;
+        this.score = 0; // Default value
+        this.racketHeight = 60; // Default value
+        this.racketWidth = 10; // Default value
+    }
+
+    public Player(float racketYPos, float racketXPos, String name, int score, float racketHeight, float racketWidth) {
+        this.racketYPos = racketYPos;
+        this.racketXPos = racketXPos;
+        this.name = name;
+        this.score = score;
+        this.racketHeight = racketHeight;
+        this.racketWidth = racketWidth;
     }
 
     public float getRacketYPos() {
@@ -19,6 +32,10 @@ public class Player {
 
     public void setRacketYPos(float racketYPos) {
         this.racketYPos = racketYPos;
+    }
+
+    public float getRacketXPos() {
+        return racketXPos;
     }
 
     public String getName() {
@@ -37,11 +54,11 @@ public class Player {
         this.score = score;
     }
 
-    public int getRacketLength() {
-        return racketLength;
+    public float getRacketHeight() {
+        return racketHeight;
     }
 
-    public void setRacketLength(int racketLength) {
-        this.racketLength = racketLength;
+    public float getRacketWidth() {
+        return racketWidth;
     }
 }

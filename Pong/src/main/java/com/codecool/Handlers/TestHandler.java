@@ -1,5 +1,6 @@
 package com.codecool.Handlers;
 
+import com.codecool.Model.Ball;
 import com.codecool.Model.GameRoom;
 import com.codecool.Model.TextInput;
 import com.google.gson.Gson;
@@ -15,7 +16,7 @@ public class TestHandler implements HttpHandler {
     final String GET_METHOD = "GET";
     final String POST_METHOD = "POST";
 //    private String textResponse = "LOADING";
-    GameRoom gameRoom;
+    private GameRoom gameRoom;
 
     public TestHandler(GameRoom gameRoom) {
         this.gameRoom = gameRoom;
@@ -27,14 +28,22 @@ public class TestHandler implements HttpHandler {
         String method = httpExchange.getRequestMethod();
 
         if (method.equals(GET_METHOD)) {
-
-            sendResponse(httpExchange, this.gameRoom.toJSON());
+            updateGameroom();
+            sendResponse(httpExchange, gameRoom.toJSON());
         } else if (method.equals(POST_METHOD)) {
             TextInput input = readAndParseJSON(httpExchange);
 
             textResponse = input.toString();
             sendResponse(httpExchange, textResponse);
         }
+    }
+
+    public void updateGameroom() {
+        Ball ball = gameRoom.getBall();
+        ball.updateAngleIfOnBoardEdge();
+        ball.updateAngleIfCollision(gameRoom.getFirstPlayer());
+        ball.updateAngleIfCollision(gameRoom.getSecondPlayer());
+        ball.updatePosition();
     }
 
     public TextInput readAndParseJSON(HttpExchange exchange) {
