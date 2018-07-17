@@ -1,4 +1,20 @@
-#board {
+#boardContainer {
+  display: flex;
+  justify-content: center;
   background: url('../images/pongTexture.png');
   background-repeat: no-repeat;
+}
+
+.hide {
+  display: none;
+}
+
+body {
+  background-image: url('../images/pongBackground.png');
+  background-repeat: no-repeat;
+}
+
+#pongLogo {
+  display: flex;
+  justify-content: center;
 }
