@@ -26,6 +26,12 @@ public class Ball {
         this.ballSize = ballSize;
     }
 
+    public void reset() {
+        this.xPos = 400;
+        this.yPos = 240;
+        this.speed = 10;
+    }
+
     public float getxPos() {
         return xPos;
     }
