@@ -1,5 +1,7 @@
 package com.codecool.Model;
 
+import com.google.gson.Gson;
+
 public class GameRoom {
     private Ball ball;
     private final float racketHeight;
@@ -39,5 +41,15 @@ public class GameRoom {
 
     public void setSecondPlayer(Player secondPlayer) {
         this.secondPlayer = secondPlayer;
+    }
+
+    public String toJSON() {
+        Gson gson = getNewGson();
+        String json = gson.toJson(this);
+        return json;
+    }
+
+    public Gson getNewGson() {
+        return new Gson();
     }
 }
