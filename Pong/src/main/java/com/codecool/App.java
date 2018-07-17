@@ -15,10 +15,10 @@ public class App {
     public static GameRoom gameRoom;
 
     public static void main(String[] args) throws Exception {
-        Player player = new Player(0f, 15f, "user", 0, 60f, 10f);
+        Player player = new Player(240f, 5f, "user", 0, 60f, 10f);
         Ball ball = new Ball(400f, 240f, 15f, 10f, 0.02f);
         gameRoom = new GameRoom(ball, player, player);
-        GameRoom gameRoom = new GameRoom(ball, player1, player2);
+        GameRoom gameRoom = new GameRoom(ball, player, player);
 
         // create a server on port 8000
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
