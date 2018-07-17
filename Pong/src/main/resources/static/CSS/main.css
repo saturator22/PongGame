@@ -1,8 +1,10 @@
 #boardContainer {
-  display: flex;
-  justify-content: center;
+  margin: auto;
+  text-align: center;
   background: url('../images/pongTexture.png');
   background-repeat: no-repeat;
+  width: 800px;
+  height: 480px;
 }
 
 .hide {
