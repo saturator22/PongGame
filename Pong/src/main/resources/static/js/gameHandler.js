@@ -3,6 +3,7 @@ function loadPage() {
     var text = document.createElement("h1");
     text.id = "text";
     text.innerHTML = "loading";
+
     var input = document.createElement("input");
     input.id = "input";
 
@@ -17,11 +18,10 @@ function loadPage() {
     document.body.appendChild(input);
     document.body.appendChild(button);
 
-    intervalId = setInterval(reloadData, 1200);
+    intervalId = setInterval(reloadData, 25);
 }
 
 function reloadData() { // GET
-    console.log("Reload data");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange =
         function() {
@@ -38,9 +38,8 @@ function sendInput() { // POST
     var url = "/test";
     var inputElement = document.getElementById("input");
     var params = JSON.stringify({"input" : inputElement.value});
-    console.log("Send input as JSON: " + params);
     xhttp.open("POST", url, true);
-    xhttp.setRequestHeader('User-Input', params);
+    xhttp.setRequestHeader('User-Input', "input");
     xhttp.onreadystatechange =
     function() {
         if (this.readyState == 4 && this.status == 200) {
