@@ -13,7 +13,6 @@ public class App {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
         // set routes
-//        server.createContext("/", new MainMenu());
         server.createContext("/test", new TestHandler());
         server.createContext("/pong", new PongHandler());
         server.createContext("/static", new StaticHandler());

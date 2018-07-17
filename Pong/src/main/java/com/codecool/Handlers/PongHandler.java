@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class PongHandler implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
         String html = loadSite("static/html/index.html");
         sendResponse(exchange, html);
     }
@@ -27,7 +27,7 @@ public class PongHandler implements HttpHandler {
                 result.append(scanner.nextLine());
             }
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             return "404: File not found";
         }
 

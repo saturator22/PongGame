@@ -16,7 +16,7 @@ public class TestHandler implements HttpHandler {
     private String textResponse = "LOADING";
 
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+    public void handle(HttpExchange httpExchange) {
 
         String method = httpExchange.getRequestMethod();
 
