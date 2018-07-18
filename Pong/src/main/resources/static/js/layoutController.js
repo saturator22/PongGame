@@ -14,11 +14,10 @@ class LayoutController {
 
   submitButtonEventHandler() {
     let submitButton = document.getElementById('sendGameRoomDetails');
-    submitButton.addEventListener('click', this.pressSubmitButton);
+    submitButton.addEventListener('click', this.pressSubmitButton.bind(this));
   }
 
   pressSubmitButton() {
-    console.log("weszlo");
     var xhttp = new XMLHttpRequest();
 
     var url = "/pong";
@@ -28,6 +27,8 @@ class LayoutController {
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader('User-Input', "input");
     xhttp.send(params);
+    console.log(this);
+    this.startGame();
   }
 
   pressNewGameButton() {
