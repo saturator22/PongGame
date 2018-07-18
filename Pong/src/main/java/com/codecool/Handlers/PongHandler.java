@@ -1,20 +1,93 @@
 package com.codecool.Handlers;
 
+import com.codecool.Helper.Redirector;
+import com.codecool.Model.Ball;
+import com.codecool.Model.GameRoom;
+import com.codecool.Model.Player;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpCookie;
+import java.util.Map;
 import java.util.Scanner;
 
 public class PongHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {
-        String html = loadSite("static/html/index.html");
-        sendResponse(exchange, html);
+        String method = exchange.getRequestMethod();
+        HttpCookie cookie;
+
+        try {
+
+            if(method.equals("GET")) {
+                String html = loadSite("static/html/index.html");
+                sendResponse(exchange, html);
+            } else if (method.equals("POST")) {
+                Map<String, String> parsedFormData = Redirector.getPostStringData(exchange);
+                String nickName = parsedFormData.get("nickName");
+                String roomId = parsedFormData.get("roomId");
+
+                cookie = assignCookieToGameRoom(exchange, roomId, nickName);
+                exchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
+
+                String html = loadSite("static/html/index.html");
+                sendResponse(exchange, html);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    public HttpCookie assignCookieToGameRoom(HttpExchange exchange, String roomId, String nickName) {
+            Map<String, GameRoom> gameRooms = TestHandler.getGameRooms();
+            HttpCookie cookie = null;
+            Ball ball = new Ball(400f, 240f, 15f, 10f, 0.02f);
+            Player player1;
+            Player player2;
+            GameRoom gameRoom = new GameRoom(ball, null, null);
+
+        try {
+            if(!isRoomAvailable(roomId)) {
+                cookie = createCookie(nickName, roomId, "P1");
+                player1 = new Player(240f, 5f, nickName, 0, 60f, 10f);
+                gameRoom.setFirstPlayer(player1);
+                TestHandler.addToGameRooms(roomId, gameRoom);
+
+            } else if(isRoomAvailable(roomId) && gameRooms.get(roomId).getSecondPlayer() == null) {
+                GameRoom gameRoomToJoin = gameRooms.get(roomId);
+                cookie = createCookie(nickName, roomId, "P2");
+                player2 = new Player(240f, 795f, nickName, 0, 60f, 10f);
+                gameRoomToJoin.setSecondPlayer(player2);
+                TestHandler.addToGameRooms(roomId, gameRoomToJoin);
+
+            } else if(isRoomAvailable(roomId) && gameRooms.get(roomId).getSecondPlayer() != null) {
+                Redirector.redirect(exchange, "/pong");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+            return cookie;
+    }
+
+    private boolean isRoomAvailable(String roomId) {
+        Map<String, GameRoom> gameRooms = TestHandler.getGameRooms();
+
+        return gameRooms.containsKey(roomId);
+    }
+
+
+    public HttpCookie createCookie(String nickName, String roomId, String player) {
+        HttpCookie cookie = new HttpCookie("sessionId", roomId);
+        cookie.setComment(player + ":" + nickName);
+
+        return cookie;
+    }
+//    public  isCookieValid()
 
     public String loadSite(String fileName) {
         StringBuilder result = new StringBuilder();
