@@ -41,6 +41,9 @@ class LayoutController {
       logo.className = "hide";
       let connectToRoomDiv = document.getElementById('joinGameroom');
       connectToRoomDiv.className = "displayInline fakeConsole";
+      let statsContainer = document.getElementById("playerDetailsContainer");
+      statsContainer.className = "displayInline";
+
 
     } else if (newGameButton.className === "active") {
       newGameButton.className = 'inactive';
@@ -59,5 +62,6 @@ class LayoutController {
 
     let board = document.getElementById('myCanvas');
     board.className = "displayInline";
+
   }
 }
