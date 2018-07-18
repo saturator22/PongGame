@@ -65,11 +65,12 @@ public class Ball {
     public void updateAngleIfCollision(Player player) {
         if (isCollidingWith(player)) {
             float updatedAngle = calcReflectionAngle(player);
+            this.angle = updatedAngle;
         }
     }
 
     public void updateAngleIfOnBoardEdge() {
-        if (this.yPos <= 0 || this.yPos >= 480) {
+        if (this.yPos <= 1 || this.yPos >= 479) {
             this.angle += 90f;
         }
     }
@@ -93,28 +94,28 @@ public class Ball {
     }
 
     public float calcReflectionAngle(Player player) {
-        float ballLeft = this.xPos;
-
-        float playerLeft = player.getRacketXPos();
-        float playerRight = playerLeft + player.getRacketWidth();
         float playerTop = player.getRacketYPos();
         float playerBottom = playerTop + player.getRacketHeight();
 
-        if (ballLeft <= playerRight) {
+        if (isOnLeftSide()) {
             return bounceRightAngle(playerTop, playerBottom);
         } else {
             return bounceLeftAngle(playerTop, playerBottom);
         }
     }
 
+    public boolean isOnLeftSide() {
+        return this.xPos <= 400;
+    }
+
     public float bounceRightAngle(float playerTop, float playerBottom) {
         float hitPositionAsPercent = calcHitPositionAsPercent(playerTop, playerBottom);
-        return getAngleBetween(100f, 260f, hitPositionAsPercent);
+        return getAngleBetween(280f, 440f, hitPositionAsPercent);
     }
 
     public float bounceLeftAngle(float playerTop, float playerBottom) {
-        float hitPositionAsPercent = calcHitPositionAsPercent(playerTop, playerBottom);
-        return getAngleBetween(280f, 350f, hitPositionAsPercent);
+        float hitPositionAsPercent =  1 - calcHitPositionAsPercent(playerTop, playerBottom);
+        return getAngleBetween(100f, 260f, hitPositionAsPercent);
     }
 
     public float calcHitPositionAsPercent(float playerTop, float playerBottom) {
@@ -132,17 +133,6 @@ public class Ball {
         double newY = speed * Math.sin(getAngleAsRadian());
         this.xPos += (float) newX;
         this.yPos += (float) newY;
-        if (this.xPos >= 800) {
-            this.xPos = 800;
-        } else if (this.xPos <= 0) {
-            this.xPos = 0;
-        }
-
-        if (this.yPos >= 480) {
-            this.yPos = 480;
-        } else if (this.yPos <= 0) {
-            this.yPos = 0;
-        }
         this.speed += this.speedIncreaseRate;
     }
 

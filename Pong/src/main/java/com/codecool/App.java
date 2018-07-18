@@ -12,12 +12,14 @@ import java.net.InetSocketAddress;
 
 public class App {
 
-    public static GameRoom gameRoom;
 
     public static void main(String[] args) throws Exception {
-        Player player = new Player(0f, 15f, "user", 0, 60f, 10f);
-        Ball ball = new Ball(400f, 240f, 15f, 10f, 0.02f);
-        gameRoom = new GameRoom(ball, player, player);
+
+        Player player1 = new Player(210f, 5f, "user1", 0, 60f, 10f);
+        Player player2 = new Player(210f, 785f, "user2", 0, 60f, 10f);
+        Ball ball = new Ball(400f, 240f, 180f, 5f, 0.01f);
+        GameRoom gameRoom = new GameRoom(ball, player1, player2);
+
         // create a server on port 8000
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
