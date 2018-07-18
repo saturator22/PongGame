@@ -20,17 +20,17 @@
 
   <div id="boardContainer">
 
-      <canvas id="myCanvas" width="800" height="480" style ="border: 2px solid white"></canvas>
-      <div id="player1name" class="playerInfo">Player One</div>
-      <div id="player1score" class="playerInfo">20</div>
-      <div id="player2name" class="playerInfo">Player Two</div>
-      <div id="player2score" class="playerInfo">0</div>
+    <canvas id="myCanvas" class="hide" width="800" height="480" style="border: 2px solid white"></canvas>
+    <div id="player1name" class="playerInfo">Player One</div>
+    <div id="player1score" class="playerInfo">20</div>
+    <div id="player2name" class="playerInfo">Player Two</div>
+    <div id="player2score" class="playerInfo">0</div>
 
     <img id="pixelLogo" class="hide" src="/static/images/pixelLogo.png">
 
     <div id="instructions" class="hide fakeConsole">
 
-      <div class="fakeScreen hide">
+      <div class="fakeScreen">
         <p class="line1">&#91;&nbsp;&ldquo;Use W / S keys to control&rdquo;
           <span class="cursor1">_</span>
         </p>
@@ -49,19 +49,14 @@
 
     <div id="joinGameroom" class="hide fakeConsole">
 
-      <div class="fakeScreen displayInline">
-        <p class="line1">&#91;&nbsp;&ldquo;Enter roomId: &rdquo;</p>  
-        <textarea id="roomId"><span class="cursor1">_</span></textarea>
-        <!-- <span class="cursor1">_</span> -->
-        <!-- <p class="line2">&nbsp;&nbsp;&ldquo;The ball will speed up with time&rdquo;,
-          <span class="cursor2">_</span>
-        </p>
-        <p class="line3">&nbsp;&nbsp;&ldquo;S M A S H your opponent!!!&rdquo;&nbsp;&#93;
-          <span class="cursor3">_</span>
-        </p>
-        <p class="line4">>
-          <span class="cursor4">_</span>
-        </p> -->
+      <div class="fakeScreen">
+
+        <p class="line1">Enter roomId:</p>
+        <input type="text" id="roomId" class="inputForm gameroomField">
+
+        <p class="line1">Enter nickname:</p>
+        <input type="text" id="nickName" class="inputForm nickName">
+
       </div>
     </div>
 
