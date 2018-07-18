@@ -64,15 +64,49 @@ public class Ball {
 
     public void updateAngleIfCollision(Player player) {
         if (isCollidingWith(player)) {
-            float updatedAngle = calcReflectionAngle(player);
-            this.angle = updatedAngle;
+            this.angle = calcReflectionAngle(player);
         }
     }
 
     public void updateAngleIfOnBoardEdge() {
-        if (this.yPos <= 1 || this.yPos >= 479) {
-            this.angle += 90f;
+        boolean shouldUpdate = isOnEdge();
+
+        if (shouldUpdate) {
+            normalizeAngle();
+            bounceOffEdge();
         }
+    }
+
+    private boolean isOnEdge() {
+        if (this.yPos <= 0) {
+            this.yPos = 1;
+            return true;
+        } else if (this.yPos >= 480 - this.ballSize) {
+            this.yPos = 480 - this.ballSize - 1;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void bounceOffEdge() {
+        if (this.angle >= 270) {
+            // if aiming at top-right (270 - 359) then bounce bottom-right
+            this.angle = 90 - (angle - 270);
+        } else if (this.angle <= 90) {
+            // if aiming at bottom-right (0 - 90) then bounce top-right
+            this.angle = 360 - angle;
+        } else if (this.angle <= 180) {
+            // if aiming at bottom-left (90 - 180) then bounce top-left
+            this.angle = 270 - (angle - 90);
+        } else {
+            // if aiming at top-left (180 - 270) then bounce bottom-left
+            this.angle = 90 + (270 - angle);
+        }
+    }
+
+    private void normalizeAngle() {
+        this.angle = this.angle % 360;
     }
 
     public boolean isCollidingWith(Player player) {
