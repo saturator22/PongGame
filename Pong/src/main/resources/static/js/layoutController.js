@@ -52,4 +52,12 @@ class LayoutController {
       logo.className = "displayInline";
     }
   }
+
+  startGame() {
+    let joinGameroomDiv = document.getElementById('joinGameroom');
+    joinGameroomDiv.className = "hide fakeConsole";
+
+    let board = document.getElementById('myCanvas');
+    board.className = "displayInline";
+  }
 }
