@@ -16,8 +16,8 @@ import java.io.OutputStream;
 public class TestHandler implements HttpHandler {
     final String GET_METHOD = "GET";
     final String POST_METHOD = "POST";
-    private String textResponse = "LOADING";
     private GameRoom gameRoom;
+    private String textResponse;
 
     public TestHandler(GameRoom gameRoom) {
         this.gameRoom = gameRoom;
@@ -34,8 +34,9 @@ public class TestHandler implements HttpHandler {
             sendResponse(httpExchange, gameRoom.toJSON());
         } else if (method.equals(POST_METHOD)) {
             TextInput input = readAndParseJSON(httpExchange);
-
-            textResponse = input.toString();
+            gameRoom.getFirstPlayer().changePosition(input.toString());
+            gameRoom.getSecondPlayer().changePosition(input.toString());
+            textResponse = "";
             sendResponse(httpExchange, textResponse);
         }
     }
@@ -59,7 +60,11 @@ public class TestHandler implements HttpHandler {
 
 
     public void updateGameroom() {
-        Ball ball = gameRoom.getBall();
+        updateBall(gameRoom.getBall());
+
+    }
+
+    public void updateBall(Ball ball) {
         ball.updateAngleIfOnBoardEdge();
         ball.updateAngleIfCollision(gameRoom.getFirstPlayer());
         ball.updateAngleIfCollision(gameRoom.getSecondPlayer());

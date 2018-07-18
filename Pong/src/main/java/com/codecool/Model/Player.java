@@ -65,4 +65,12 @@ public class Player {
     public float getRacketWidth() {
         return racketWidth;
     }
+
+    public void changePosition(String direction) {
+        if (direction.equals("up")) {
+            this.racketYPos -= 10;
+        } else {
+            this.racketYPos += 10;
+        }
+    }
 }
