@@ -7,6 +7,8 @@ class GameBoard {
 
   createBoard(height, width) {
     let board = document.createElement('canvas');
+    board.id = 'gameBoard';
+    board.className = 'displayInline';
     board.width = width;
     board.height = height;
     let context = board.getContext('2d');
