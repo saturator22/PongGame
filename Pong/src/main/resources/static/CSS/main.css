@@ -80,11 +80,36 @@ body {
     float: left;
 }
 
+.inputForm {
+  position: absolute;
+  font-family: "Press Start 2P";
+  width: 30%;
+  font-size: 2vh;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.nickNameField {
+  top: 119px;
+  left: 316px;
+}
+
+.gameroomField {
+  top: 37px;
+  left: 270px;
+}
+
 .fakeConsole {
     position: absolute;
     top: 150px;
     left: 150px;
 } 
+
+#joinGameroom {
+  top: 350px;
+}
 
 .fakeScreen {
     background-color: black;
@@ -98,10 +123,10 @@ body {
 
 p {
     position: relative;
-    left: 140px;
+    left: 180px;
     margin-left: -8.5em;
     text-align: left;
-    font-size: 1vh;
+    font-size: 2vh;
     font-family: "Press Start 2P";
     white-space: nowrap;
     overflow: hidden;
@@ -126,6 +151,13 @@ span {
     -moz-animation: blink 1s 2s 2 forwards;
     -o-animation: blink 1s 2s 2 forwards;
     animation: blink 1s 2s 2 forwards;
+}
+
+.staticCursor {
+    -webkit-animation: blink 1s 2s 0 forwards;
+    -moz-animation: blink 1s 2s 0 forwards;
+    -o-animation: blink 1s 2s 0 forwards;
+    animation: blink 1s 2s 0 forwards;
 }
 
 .line2 {
