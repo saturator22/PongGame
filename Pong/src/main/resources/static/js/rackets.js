@@ -34,14 +34,17 @@ class GameBoard {
         gameLine.lineTo(400, 480);
 
         let ballView = c.getContext("2d");
+        ballView.fillStyle = "#FFF";
         ballView.fillRect(this.ball.xPos, this.ball.yPos, this.ball.size, this.ball.size);
 
         let racket1View = c.getContext("2d");
+        racket1View.fillStyle = "#FFF";
         racket1View.fillRect(this.racket1.xPosition, this.racket1.yPosition,
             this.racket1.racketWidth, this.racket1.racketHeight);
 
 
         let racket2View = c.getContext("2d");
+        racket2View.fillStyle = "#FFF";
         racket2View.fillRect(this.racket2.xPosition, this.racket2.yPosition,
                     this.racket2.racketWidth, this.racket2.racketHeight);
 
