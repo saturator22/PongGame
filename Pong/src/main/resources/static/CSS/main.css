@@ -28,6 +28,12 @@ body {
     left: 150px;
 }
 
+#myCanvas {
+    position: absolute;
+    top: 150px;
+    left: 150px;
+}
+
 .hide {
     display: none;
 }
