@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
 
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <!-- "Press Start 2P" -->
     <title>Pong</title>
 
 </head>
 
 <body onload="main()">
 
-    <div id="pongLogo">
-      <img src="../images/logo.png">
+    <div id="controlsContainer">
+        <button id="newGameButton">
+            <img src="../images/buttons/newGameButton.png">
+        </button>
     </div>
 
+    <div id="boardContainer">
+        <img id="pixelLogo" class="hide" src="../images/pixelLogo.png">
 
-    <div id="boardContainer"></div>
+        <div id="fakeConsole">
+            <div class="fakeScreen">
+                <p class="line1">&#91;&nbsp;&ldquo;Use W / S keys to control&rdquo;
+                    <span class="cursor1">_</span>
+                </p>
+                <p class="line2">&nbsp;&nbsp;&ldquo;The ball will speed up with time&rdquo;,
+                    <span class="cursor2">_</span>
+                </p>
+                <p class="line3">&nbsp;&nbsp;&ldquo;S M A S H your opponent!!!&rdquo;&nbsp;&#93;
+                    <span class="cursor3">_</span>
+                </p>
+                <p class="line4">>
+                    <span class="cursor4">_</span>
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script src="../js/gameHandler.js"></script>
     <script src="../js/gameBoard.js"></script>
@@ -23,4 +45,5 @@
     <script src="../js/main.js"></script>
 
 </body>
+
 </html>
