@@ -22,6 +22,21 @@ class GameBoard {
         this.racket1 = new Racket(240, 5, "Wojtech");
         this.racket2 = new Racket(240, 785, "Bart");
         this.ball = new Ball(400, 240, 10);
+        this.renderPlayersNames();
+    }
+
+    renderPlayersNames() {
+      let player1name = document.getElementById("player1name");
+      player1name.innerHTML = this.racket1.name;
+      let player2name = document.getElementById("player2name");
+      player2name.innerHTML = this.racket2.name;
+    }
+
+    resetScores() {
+      let player1score = document.getElementById("player1score");
+      player1score.innerHTML("0");
+      let player2score = document.getElementById("player2score");
+      player2score.innerHTML("0");
     }
 
     prepareGameBoard() {

@@ -22,16 +22,40 @@ body {
     background-repeat: no-repeat;
 }
 
-#gameBoard {
+#myCanvas {
     position: absolute;
     top: 150px;
     left: 150px;
 }
 
-#myCanvas {
-    position: absolute;
-    top: 150px;
-    left: 150px;
+#player1name {
+  position: absolute;
+  top: 650px;
+  left: 150px;
+}
+
+#player1score {
+  position: absolute;
+  top: 680px;
+  left: 150px;
+}
+
+#player2name {
+  position: absolute;
+  top: 650px;
+  left: 745px;
+}
+
+#player2score {
+  position: absolute;
+  top: 680px;
+  left: 745px;
+}
+
+.playerInfo {
+  font-size: 1.5vh;
+  font-family: "Press Start 2P"; 
+  color: white;
 }
 
 .hide {
@@ -56,11 +80,44 @@ body {
     float: left;
 }
 
+.inputForm {
+  position: absolute;
+  font-family: "Press Start 2P";
+  width: 30%;
+  font-size: 2vh;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.nickName {
+  top: 59px;
+  left: 316px;
+}
+
+.gameroomField {
+  top: 32px;
+  left: 300px;
+}
+
+#sendGameRoomDetails {
+  background-color: white;
+  color: black;
+  font-family: "Press Start 2P";
+  font-size: 2vh;
+  border: solid 4px white;
+}
+
 .fakeConsole {
     position: absolute;
     top: 150px;
     left: 150px;
 } 
+
+#joinGameroom {
+  top: 350px;
+}
 
 .fakeScreen {
     background-color: black;
@@ -74,10 +131,10 @@ body {
 
 p {
     position: relative;
-    left: 140px;
+    left: 180px;
     margin-left: -8.5em;
     text-align: left;
-    font-size: 1em;
+    font-size: 2vh;
     font-family: "Press Start 2P";
     white-space: nowrap;
     overflow: hidden;
@@ -102,6 +159,13 @@ span {
     -moz-animation: blink 1s 2s 2 forwards;
     -o-animation: blink 1s 2s 2 forwards;
     animation: blink 1s 2s 2 forwards;
+}
+
+.staticCursor {
+    -webkit-animation: blink 1s 2s 0 forwards;
+    -moz-animation: blink 1s 2s 0 forwards;
+    -o-animation: blink 1s 2s 0 forwards;
+    animation: blink 1s 2s 0 forwards;
 }
 
 .line2 {
