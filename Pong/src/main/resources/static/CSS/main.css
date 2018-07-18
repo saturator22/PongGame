@@ -1,5 +1,5 @@
 body {
-    background-image: url('../images/background.png');
+    background-image: url('/static/images/background.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -18,7 +18,7 @@ body {
     height: 990px;
     margin: 50px auto 0px;
     text-align: center;
-    background: url('../images/screen.png');
+    background: url('/static/images/screen.png');
     background-repeat: no-repeat;
 }
 

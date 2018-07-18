@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="/static/CSS/main.css" />
   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
   <!-- "Press Start 2P" -->
   <title>Pong</title>
@@ -14,14 +14,17 @@
 
   <div id="controlsContainer">
     <button id="newGameButton">
-      <img src="../images/buttons/newGameButton.png">
+      <img src="/static/images/buttons/newGameButton.png">
     </button>
   </div>
 
   <div id="boardContainer">
-    <img id="pixelLogo" class="hide" src="../images/pixelLogo.png">
 
-    <div id="fakeConsole">
+      <canvas id="myCanvas" width="800" height="480" style ="background-color=green; border: 2px solid white"></canvas>
+
+    <img id="pixelLogo" class="hide" src="/static/images/pixelLogo.png">
+
+    <div class="hide" id="fakeConsole">
 
       <div class="fakeScreen" class="instructions hide">
         <p class="line1">&#91;&nbsp;&ldquo;Use W / S keys to control&rdquo;
@@ -38,7 +41,8 @@
         </p>
       </div>
     </div>
-    <div id="fakeConsole">
+
+    <div class="hide" id="fakeConsole">
       <div class="fakeScreen" class="joinGameroom displayInline">
         <p class="line1">&#91;&nbsp;&ldquo;Enter roomId: &rdquo;
           <span class="cursor1">_</span>
@@ -58,10 +62,11 @@
 
   </div>
 
-  <script src="../js/gameHandler.js"></script>
-  <script src="../js/gameBoard.js"></script>
-  <script src="../js/gameController.js"></script>
-  <script src="../js/main.js"></script>
+  <script src="/static/js/gameHandler.js"></script>
+  <script src="/static/js/gameBoard.js"></script>
+  <script src="/static/js/gameController.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script src="/static/js/rackets.js"></script>
 
 </body>
 

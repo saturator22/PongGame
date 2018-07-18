@@ -26,7 +26,7 @@ class GameBoard {
 
     prepareGameBoard() {
         this.clear();
-
+        console.log("prepare gb");
         let c = document.getElementById("myCanvas");
         
         let gameLine = c.getContext("2d");
@@ -59,6 +59,7 @@ class GameBoard {
     }
 
     renderData() {
+    console.log("racket render data");
         var xhttp = new XMLHttpRequest();
         let scope = this;
 
@@ -112,10 +113,11 @@ class GameBoard {
 }
 
 window.onload = function() {
+    console.log("racket on load");
     let gameBoard = new GameBoard;
     let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 45);
 
     gameBoard.prepareGameBoard();
-    
+
     this.document.addEventListener("keydown", gameBoard.handlePressedKey.bind(gameBoard));
 }

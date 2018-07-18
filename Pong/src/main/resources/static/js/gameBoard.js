@@ -1,4 +1,4 @@
-class GameBoard {
+class GameBoard1 {
 
   constructor(height, width) {
     this.height = height;
@@ -12,7 +12,6 @@ class GameBoard {
     board.width = width;
     board.height = height;
     let context = board.getContext('2d');
-
     return board;
   }
 
