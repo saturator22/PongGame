@@ -14,7 +14,6 @@ public class App {
 
 
     public static void main(String[] args) throws Exception {
-
         Player player1 = new Player(210f, 5f, "user1", 0, 60f, 10f);
         Player player2 = new Player(210f, 785f, "user2", 0, 60f, 10f);
         Ball ball = new Ball(400f, 240f, 180f, 5f, 0.01f);

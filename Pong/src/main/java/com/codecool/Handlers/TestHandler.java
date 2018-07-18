@@ -15,8 +15,8 @@ import java.io.OutputStream;
 public class TestHandler implements HttpHandler {
     final String GET_METHOD = "GET";
     final String POST_METHOD = "POST";
-    private String textResponse = "LOADING";
     private GameRoom gameRoom;
+    private String textResponse;
 
     public TestHandler(GameRoom gameRoom) {
         this.gameRoom = gameRoom;

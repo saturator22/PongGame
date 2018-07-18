@@ -69,7 +69,7 @@ class GameBoard {
                 scope.updateGameBoard(parsedJson);
             }
         };
-        xhttp.open("GET", "/test", false);
+        xhttp.open("GET", "/test", true);
         xhttp.send();
         this.prepareGameBoard();
     }
