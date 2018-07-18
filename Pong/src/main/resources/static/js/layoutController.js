@@ -2,6 +2,7 @@ window.onload = function () {
   let layoutController = new LayoutController();
 
   layoutController.newGameButtonEventHandler();
+  layoutController.submitButtonEventHandler();
 }
 
 class LayoutController {
@@ -17,6 +18,7 @@ class LayoutController {
   }
 
   pressSubmitButton() {
+    console.log("weszlo");
     var xhttp = new XMLHttpRequest();
 
     var url = "/pong";
