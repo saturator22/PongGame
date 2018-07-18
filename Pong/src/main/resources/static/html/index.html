@@ -24,10 +24,13 @@
   <div id="boardContainer">
 
     <canvas id="myCanvas" class="hide" width="800" height="480" style="border: 2px solid white"></canvas>
-    <div id="player1name" class="playerInfo">Player One</div>
-    <div id="player1score" class="playerInfo">20</div>
-    <div id="player2name" class="playerInfo">Player Two</div>
-    <div id="player2score" class="playerInfo">0</div>
+
+    <div id="playerDetailsContainer" class="hide">
+      <div id="player1name" class="playerInfo">Player One</div>
+      <div id="player1score" class="playerInfo">20</div>
+      <div id="player2name" class="playerInfo">Player Two</div>
+      <div id="player2score" class="playerInfo">0</div>
+    </div>
 
     <img id="pixelLogo" class="displayInline" src="/static/images/pixelLogo.png">
 
@@ -54,11 +57,15 @@
 
       <div class="fakeScreen">
 
-        <p class="line1">Enter roomId:</p>
-        <input type="text" id="roomId" class="inputForm gameroomField">
+        <div id="roomIdFormContainer">
+          <p id="roomIdFormContainer" class="line1">Enter roomId:</p>
+          <input type="text" id="roomId" class="inputForm gameroomField">
+        </div>
 
-        <p class="line1">Enter nickname:</p>
-        <input type="text" id="nickName" class="inputForm nickName">
+        <div id="nicknameFormContainer">
+          <p id="nicknameFormHeader" class="line1">Enter nickname:</p>
+          <input type="text" id="nickName" class="inputForm nickName">
+        </div>
 
         <input type="submit" id="sendGameRoomDetails">ok</button>
 
