@@ -11,6 +11,23 @@ class LayoutController {
     ngButton.addEventListener('click', this.pressNewGameButton);
   }
 
+  submitButtonEventHandler() {
+    let submitButton = document.getElementById('sendGameRoomDetails');
+    submitButton.addEventListener('click', this.pressSubmitButton);
+  }
+
+  pressSubmitButton() {
+    var xhttp = new XMLHttpRequest();
+
+    var url = "/pong";
+    var params = `roomId=${document.getElementById("roomId").value}
+                  &nickName=${document.getElementById("nickName").value}`;
+
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader('User-Input', "input");
+    xhttp.send(params);
+  }
+
   pressNewGameButton() {
     let newGameButton = document.getElementById('newGameButton');
     let buttonInactive = document.getElementById('newGameBtn');
