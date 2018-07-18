@@ -26,6 +26,12 @@ public class Ball {
         this.ballSize = ballSize;
     }
 
+    public void reset() {
+        this.xPos = 400;
+        this.yPos = 240;
+        this.speed = 10;
+    }
+
     public float getxPos() {
         return xPos;
     }
@@ -64,14 +70,49 @@ public class Ball {
 
     public void updateAngleIfCollision(Player player) {
         if (isCollidingWith(player)) {
-            float updatedAngle = calcReflectionAngle(player);
+            this.angle = calcReflectionAngle(player);
         }
     }
 
     public void updateAngleIfOnBoardEdge() {
-        if (this.yPos <= 0 || this.yPos >= 480) {
-            this.angle += 90f;
+        boolean shouldUpdate = isOnEdge();
+
+        if (shouldUpdate) {
+            normalizeAngle();
+            bounceOffEdge();
         }
+    }
+
+    private boolean isOnEdge() {
+        if (this.yPos <= 0) {
+            this.yPos = 1;
+            return true;
+        } else if (this.yPos >= 480 - this.ballSize) {
+            this.yPos = 480 - this.ballSize - 1;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void bounceOffEdge() {
+        if (this.angle >= 270) {
+            // if aiming at top-right (270 - 359) then bounce bottom-right
+            this.angle = 90 - (angle - 270);
+        } else if (this.angle <= 90) {
+            // if aiming at bottom-right (0 - 90) then bounce top-right
+            this.angle = 360 - angle;
+        } else if (this.angle <= 180) {
+            // if aiming at bottom-left (90 - 180) then bounce top-left
+            this.angle = 270 - (angle - 90);
+        } else {
+            // if aiming at top-left (180 - 270) then bounce bottom-left
+            this.angle = 90 + (270 - angle);
+        }
+    }
+
+    private void normalizeAngle() {
+        this.angle = this.angle % 360;
     }
 
     public boolean isCollidingWith(Player player) {
@@ -93,28 +134,28 @@ public class Ball {
     }
 
     public float calcReflectionAngle(Player player) {
-        float ballLeft = this.xPos;
-
-        float playerLeft = player.getRacketXPos();
-        float playerRight = playerLeft + player.getRacketWidth();
         float playerTop = player.getRacketYPos();
         float playerBottom = playerTop + player.getRacketHeight();
 
-        if (ballLeft <= playerRight) {
+        if (isOnLeftSide()) {
             return bounceRightAngle(playerTop, playerBottom);
         } else {
             return bounceLeftAngle(playerTop, playerBottom);
         }
     }
 
+    public boolean isOnLeftSide() {
+        return this.xPos <= 400;
+    }
+
     public float bounceRightAngle(float playerTop, float playerBottom) {
         float hitPositionAsPercent = calcHitPositionAsPercent(playerTop, playerBottom);
-        return getAngleBetween(100f, 260f, hitPositionAsPercent);
+        return getAngleBetween(300f, 420f, hitPositionAsPercent);
     }
 
     public float bounceLeftAngle(float playerTop, float playerBottom) {
-        float hitPositionAsPercent = calcHitPositionAsPercent(playerTop, playerBottom);
-        return getAngleBetween(280f, 350f, hitPositionAsPercent);
+        float hitPositionAsPercent =  1 - calcHitPositionAsPercent(playerTop, playerBottom);
+        return getAngleBetween(120f, 240f, hitPositionAsPercent);
     }
 
     public float calcHitPositionAsPercent(float playerTop, float playerBottom) {
@@ -132,17 +173,6 @@ public class Ball {
         double newY = speed * Math.sin(getAngleAsRadian());
         this.xPos += (float) newX;
         this.yPos += (float) newY;
-        if (this.xPos >= 800) {
-            this.xPos = 800;
-        } else if (this.xPos <= 0) {
-            this.xPos = 0;
-        }
-
-        if (this.yPos >= 480) {
-            this.yPos = 480;
-        } else if (this.yPos <= 0) {
-            this.yPos = 0;
-        }
         this.speed += this.speedIncreaseRate;
     }
 

@@ -1,11 +1,73 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <title>Pong</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/static/CSS/main.css" />
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <!-- "Press Start 2P" -->
+  <title>Pong</title>
+
 </head>
-<body style="background-color=black">
-    <canvas id="myCanvas" width="800" height="480" style ="background-color=green; border: 2px solid white"></canvas>
-    <script src="/static/js/rackets.js"></script>
+
+<body onload="main()">
+
+  <div id="controlsContainer">
+    <button id="newGameButton">
+      <img src="/static/images/buttons/newGameButton.png">
+    </button>
+  </div>
+
+  <div id="boardContainer">
+
+      <canvas id="myCanvas" width="800" height="480" style ="background-color=green; border: 2px solid white"></canvas>
+
+    <img id="pixelLogo" class="hide" src="/static/images/pixelLogo.png">
+
+    <div id="instructions" class="hide fakeConsole">
+
+      <div class="fakeScreen hide">
+        <p class="line1">&#91;&nbsp;&ldquo;Use W / S keys to control&rdquo;
+          <span class="cursor1">_</span>
+        </p>
+        <p class="line2">&nbsp;&nbsp;&ldquo;Your opponent is waiting&rdquo;,
+          <span class="cursor2">_</span>
+        </p>
+        <p class="line3">&nbsp;&nbsp;&ldquo;Good luck...&rdquo;&nbsp;&#93;
+          <span class="cursor3">_</span>
+        </p>
+        <p class="line4">>
+          <span class="cursor4">_</span>
+        </p>
+      </div>
+    </div>
+
+    <div id="joinGameroom" class="hide fakeConsole">
+      <div class="fakeScreen displayInline">
+        <p class="line1">&#91;&nbsp;&ldquo;Enter roomId: &rdquo;
+          <span class="cursor1">_</span>
+        </p>
+        <p class="line2">&nbsp;&nbsp;&ldquo;The ball will speed up with time&rdquo;,
+          <span class="cursor2">_</span>
+        </p>
+        <p class="line3">&nbsp;&nbsp;&ldquo;S M A S H your opponent!!!&rdquo;&nbsp;&#93;
+          <span class="cursor3">_</span>
+        </p>
+        <p class="line4">>
+          <span class="cursor4">_</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <script src="/static/js/gameHandler.js"></script>
+  <script src="/static/js/gameBoard.js"></script>
+  <script src="/static/js/gameController.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script src="/static/js/rackets.js"></script>
+
 </body>
+
 </html>

@@ -1,7 +1,9 @@
 class Racket {
-   constructor(yPosition, name) {
+   constructor(yPosition, xPosition, name) {
        this.yPosition = yPosition;
-       this.racketLength = 60;
+       this.xPosition = xPosition;
+       this.racketHeight = 60;
+       this.racketWidth = 15;
        this.name = name;
        this.score = 0;
    } 
@@ -17,14 +19,13 @@ class Ball {
 
 class GameBoard {
     constructor() {
-        this.racket1 = new Racket(240, "Wojtech");
-        this.racket2 = new Racket(240, "Bart");
+        this.racket1 = new Racket(240, 5, "Wojtech");
+        this.racket2 = new Racket(240, 785, "Bart");
         this.ball = new Ball(400, 240, 10);
     }
 
     prepareGameBoard() {
         this.clear();
-
         let c = document.getElementById("myCanvas");
         
         let gameLine = c.getContext("2d");
@@ -32,16 +33,19 @@ class GameBoard {
         gameLine.lineTo(400, 480);
 
         let ballView = c.getContext("2d");
-        ballView.moveTo(this.ball.xPos, this.ball.yPos);
+        ballView.fillStyle = "#FFF";
         ballView.fillRect(this.ball.xPos, this.ball.yPos, this.ball.size, this.ball.size);
 
         let racket1View = c.getContext("2d");
-        racket1View.moveTo(5, this.racket1.yPosition);
-        racket1View.lineTo(5, this.racket1.yPosition - this.racket1.racketLength);
+        racket1View.fillStyle = "#FFF";
+        racket1View.fillRect(this.racket1.xPosition, this.racket1.yPosition,
+            this.racket1.racketWidth, this.racket1.racketHeight);
+
 
         let racket2View = c.getContext("2d");
-        racket2View.moveTo(795, this.racket2.yPosition);
-        racket2View.lineTo(795, this.racket2.yPosition - this.racket2.racketLength);
+        racket2View.fillStyle = "#FFF";
+        racket2View.fillRect(this.racket2.xPosition, this.racket2.yPosition,
+                    this.racket2.racketWidth, this.racket2.racketHeight);
 
         gameLine.stroke();
         racket1View.stroke();
@@ -111,9 +115,9 @@ class GameBoard {
 
 window.onload = function() {
     let gameBoard = new GameBoard;
-    let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 25);
+    let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 45);
 
     gameBoard.prepareGameBoard();
-    
+
     this.document.addEventListener("keydown", gameBoard.handlePressedKey.bind(gameBoard));
 }

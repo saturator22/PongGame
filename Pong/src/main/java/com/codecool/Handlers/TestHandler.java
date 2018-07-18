@@ -52,6 +52,22 @@ public class TestHandler implements HttpHandler {
         return cookie.getComment().split(":")[0];
     }
 
+    public void updateScore(GameRoom gameRoom) {
+        float player1BoardEdge = -10;
+        float player2BoardEdge = 810;
+
+        float xPos = gameRoom.getBall().getxPos();
+
+        if (xPos <= player1BoardEdge) {
+            gameRoom.getSecondPlayer().addPoint();
+            gameRoom.getBall().reset();
+
+        } else if (xPos >= player2BoardEdge) {
+            gameRoom.getFirstPlayer().addPoint();
+            gameRoom.getBall().reset();
+        }
+    }
+
     public static Map<String, GameRoom> getGameRooms() {
         return gameRooms;
     }
@@ -64,8 +80,16 @@ public class TestHandler implements HttpHandler {
         gameRooms.remove(roomId);
     }
 
+
+
     public void updateGameroom(GameRoom gameRoom) {
+        updateBall(gameRoom);
+        updateScore(gameRoom);
+    }
+
+    public void updateBall(GameRoom gameRoom) {
         Ball ball = gameRoom.getBall();
+
         ball.updateAngleIfOnBoardEdge();
         ball.updateAngleIfCollision(gameRoom.getFirstPlayer());
         ball.updateAngleIfCollision(gameRoom.getSecondPlayer());
