@@ -91,14 +91,22 @@ body {
   outline: none;
 }
 
-.nickNameField {
-  top: 119px;
+.nickName {
+  top: 59px;
   left: 316px;
 }
 
 .gameroomField {
-  top: 37px;
-  left: 270px;
+  top: 32px;
+  left: 300px;
+}
+
+#sendGameRoomDetails {
+  background-color: white;
+  color: black;
+  font-family: "Press Start 2P";
+  font-size: 2vh;
+  border: solid 4px white;
 }
 
 .fakeConsole {
