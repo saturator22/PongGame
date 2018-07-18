@@ -150,12 +150,12 @@ public class Ball {
 
     public float bounceRightAngle(float playerTop, float playerBottom) {
         float hitPositionAsPercent = calcHitPositionAsPercent(playerTop, playerBottom);
-        return getAngleBetween(280f, 440f, hitPositionAsPercent);
+        return getAngleBetween(300f, 420f, hitPositionAsPercent);
     }
 
     public float bounceLeftAngle(float playerTop, float playerBottom) {
         float hitPositionAsPercent =  1 - calcHitPositionAsPercent(playerTop, playerBottom);
-        return getAngleBetween(100f, 260f, hitPositionAsPercent);
+        return getAngleBetween(120f, 240f, hitPositionAsPercent);
     }
 
     public float calcHitPositionAsPercent(float playerTop, float playerBottom) {
