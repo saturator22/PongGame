@@ -29,8 +29,7 @@ public class TestHandler implements HttpHandler {
         String method = httpExchange.getRequestMethod();
 
         if (method.equals(GET_METHOD)) {
-            updateGameroom();
-            updateScore();
+            updateGameroom(gameRoom);
             sendResponse(httpExchange, gameRoom.toJSON());
         } else if (method.equals(POST_METHOD)) {
             TextInput input = readAndParseJSON(httpExchange);
@@ -41,13 +40,13 @@ public class TestHandler implements HttpHandler {
         }
     }
 
-    public void updateScore() {
-        float player1BoardEdge = 0;
-        float player2BoardEdge = 800;
+    public void updateScore(GameRoom gameRoom) {
+        float player1BoardEdge = -10;
+        float player2BoardEdge = 810;
 
         float xPos = gameRoom.getBall().getxPos();
 
-        if (xPos >= player1BoardEdge) {
+        if (xPos <= player1BoardEdge) {
             gameRoom.getSecondPlayer().addPoint();
             gameRoom.getBall().reset();
 
@@ -59,9 +58,9 @@ public class TestHandler implements HttpHandler {
 
 
 
-    public void updateGameroom() {
+    public void updateGameroom(GameRoom gameRoom) {
         updateBall(gameRoom.getBall());
-
+        updateScore(gameRoom);
     }
 
     public void updateBall(Ball ball) {
