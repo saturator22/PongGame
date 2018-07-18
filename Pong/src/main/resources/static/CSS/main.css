@@ -5,12 +5,33 @@ body {
     background-position: center center;
 }
 
+/* hide / show */
+
+.hide {
+  display: none;
+}
+
+.displayInline {
+  display: inline;
+}
+
+/* logo */
+
 #pixelLogo {
     position: absolute;
     bottom: 0;
     left: 250px;
     top: 220px;
 }
+
+#pixelLogoShort {
+    position: absolute;
+    bottom: 0;
+    left: 250px;
+    top: 180px;
+}
+
+/* game board section */
 
 #boardContainer {
     position: relative;
@@ -28,6 +49,22 @@ body {
     left: 150px;
 }
 
+/* game board section / players details */
+
+#playerDetailsContainer {
+  display: hide;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.playerInfo {
+  width: 200px;
+  font-size: 1.5vh;
+  font-family: "Press Start 2P"; 
+  color: white;
+}
+
 #player1name {
   position: absolute;
   top: 650px;
@@ -35,8 +72,8 @@ body {
 }
 
 #player1score {
+  top: 690px;
   position: absolute;
-  top: 680px;
   left: 150px;
 }
 
@@ -48,29 +85,11 @@ body {
 
 #player2score {
   position: absolute;
-  top: 680px;
+  top: 690px;
   left: 745px;
 }
 
-.playerInfo {
-  font-size: 1.5vh;
-  font-family: "Press Start 2P"; 
-  color: white;
-}
-
-.hide {
-    display: none;
-}
-
-.displayInline {
-    display: inline;
-}
-
-#newGameButton {
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
+/* button */
 
 #controlsContainer {
     width: 15%;
@@ -79,6 +98,14 @@ body {
     display: block;
     float: left;
 }
+
+#newGameButton {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+/* form */
 
 .inputForm {
   position: absolute;
@@ -101,6 +128,8 @@ body {
   left: 300px;
 }
 
+/* form / submit */
+
 #sendGameRoomDetails {
   background-color: white;
   color: black;
@@ -109,15 +138,7 @@ body {
   border: solid 4px white;
 }
 
-.fakeConsole {
-    position: absolute;
-    top: 150px;
-    left: 150px;
-} 
-
-#joinGameroom {
-  top: 350px;
-}
+/* fake console */
 
 .fakeScreen {
     background-color: black;
@@ -128,6 +149,20 @@ body {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
+.fakeConsole {
+    position: absolute;
+    top: 150px;
+    left: 150px;
+} 
+
+/* fake console / join server section */
+
+#joinGameroom {
+  top: 350px;
+}
+
+/* fake console / paragraph */
 
 p {
     position: relative;
@@ -141,10 +176,14 @@ p {
     width: 0;
 }
 
+/* fake console / cursor */
+
 span {
     color: #fff;
     font-weight: bold;
 }
+
+/* fake console / animations */
 
 .line1 {
     color: #9CD9F0;
