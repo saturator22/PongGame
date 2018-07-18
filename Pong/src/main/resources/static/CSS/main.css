@@ -22,16 +22,40 @@ body {
     background-repeat: no-repeat;
 }
 
-#gameBoard {
+#myCanvas {
     position: absolute;
     top: 150px;
     left: 150px;
 }
 
-#myCanvas {
-    position: absolute;
-    top: 150px;
-    left: 150px;
+#player1name {
+  position: absolute;
+  top: 650px;
+  left: 150px;
+}
+
+#player1score {
+  position: absolute;
+  top: 680px;
+  left: 150px;
+}
+
+#player2name {
+  position: absolute;
+  top: 650px;
+  left: 745px;
+}
+
+#player2score {
+  position: absolute;
+  top: 680px;
+  left: 745px;
+}
+
+.playerInfo {
+  font-size: 1.5vh;
+  font-family: "Press Start 2P"; 
+  color: white;
 }
 
 .hide {
@@ -77,7 +101,7 @@ p {
     left: 140px;
     margin-left: -8.5em;
     text-align: left;
-    font-size: 1em;
+    font-size: 1vh;
     font-family: "Press Start 2P";
     white-space: nowrap;
     overflow: hidden;
