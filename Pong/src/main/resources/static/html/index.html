@@ -2,86 +2,94 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="/static/CSS/main.css" />
-  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-  <!-- "Press Start 2P" -->
-  <title>Pong</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/static/CSS/main.css" />
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+	<!-- "Press Start 2P" -->
+	<title>Pong</title>
 
 </head>
 
 <body onload="main()">
 
-  <div id="controlsContainer">
+	<div id="controlsContainerSidebar">
 
-    <button id="newGameButton" class="inactive">
-      <img id="newGameBtn" class="displayInline" src="/static/images/buttons/newGameButton.png">
-      <img id="newGameBtnPressed" class="hide" src="/static/images/buttons/newGameButtonPressed.png">
-    </button>
+		<button id="newGameButton" class="inactive">
+			<img id="newGameBtn" class="displayInline" src="/static/images/buttons/newGameButton.png">
+			<img id="newGameBtnPressed" class="hide" src="/static/images/buttons/newGameButtonPressed.png">
+		</button>
 
-  </div>
+		<button id="instructionsButton" class="inactive">
+			<img id="instructionsBtn" class="displayInline" src="/static/images/buttons/instructionsButton.png">
+			<img id="instructionsBtnPressed" class="hide" src="/static/images/buttons/instructionsButtonPressed.png">
+		</button>
 
-  <div id="boardContainer">
+	</div>
 
-    <canvas id="myCanvas" class="hide" width="800" height="480" style="border: 2px solid white"></canvas>
+	<div id="boardContainer">
 
-    <div id="playerDetailsContainer" class="hide">
-      <div id="player1name" class="playerInfo">Player One</div>
-      <div id="player1score" class="playerInfo">20</div>
-      <div id="player2name" class="playerInfo">Player Two</div>
-      <div id="player2score" class="playerInfo">0</div>
-    </div>
+		<canvas id="myCanvas" class="hide" width="800" height="480" style="border: 2px solid white"></canvas>
 
-    <img id="pixelLogo" class="displayInline" src="/static/images/pixelLogo.png">
+		<div id="playerDetailsContainer" class="hide">
+			<div id="player1name" class="playerInfo">Player One</div>
+			<div id="player1score" class="playerInfo">20</div>
+			<div id="player2name" class="playerInfo">Player Two</div>
+			<div id="player2score" class="playerInfo">0</div>
+		</div>
 
-    <div id="instructions" class="hide fakeConsole">
+		<img id="pixelLogo" class="displayInline" src="/static/images/pixelLogo.png">
 
-      <div class="fakeScreen">
-        <p class="line1">&#91;&nbsp;&ldquo;Use W / S keys to control&rdquo;
-          <span class="cursor1">_</span>
-        </p>
-        <p class="line2">&nbsp;&nbsp;&ldquo;Your opponent is waiting&rdquo;,
-          <span class="cursor2">_</span>
-        </p>
-        <p class="line3">&nbsp;&nbsp;&ldquo;Good luck...&rdquo;&nbsp;&#93;
-          <span class="cursor3">_</span>
-        </p>
-        <p class="line4">>
-          <span class="cursor4">_</span>
-        </p>
-      </div>
+		<div id="instructions" class="hide fakeConsole">
 
-    </div>
+			<div class="fakeScreen">
+				<p class="line1">&#91;&nbsp;&ldquo;Press start, enter nickname&rdquo;
+					<span class="cursor1">_</span>
+				</p>
+				<p class="line2">&nbsp;&nbsp;&ldquo;Enter existing/new room id&rdquo;,
+					<span class="cursor2">_</span>
+				</p>
+				<p class="line3">&nbsp;&nbsp;&ldquo;Use W / S keys to control&rdquo;&nbsp;&#93;
+					<span class="cursor3">_</span>
+				</p>
+				<p class="line4">>
+					<span class="cursor4">_</span>
+				</p>
+			</div>
 
-    <div id="joinGameroom" class="hide fakeConsole">
+		</div>
 
-      <div class="fakeScreen">
+		<div id="joinGameroom" class="hide fakeConsole">
 
-        <div id="roomIdFormContainer">
-          <p id="roomIdFormContainer" class="line1">Enter roomId:</p>
-          <input type="text" id="roomId" class="inputForm gameroomField">
-        </div>
+			<div class="fakeScreen">
 
-        <div id="nicknameFormContainer">
-          <p id="nicknameFormHeader" class="line1">Enter nickname:</p>
-          <input type="text" id="nickName" class="inputForm nickName">
-        </div>
+				<img id="pixelLogoSmall" class="displayInline" src="/static/images/pixelLogoSmall.png">
 
-        <input type="submit" id="sendGameRoomDetails">ok</button>
+				<div id="roomIdFormContainer">
+					<p id="roomIdFormHeader" class="line1">Enter room ID:</p>
+					<input type="text" id="roomId" class="inputForm roomIdFormField">
+				</div>
 
-      </div>
-    </div>
+				<div id="nicknameFormContainer">
+					<p id="nicknameFormHeader" class="line1">Enter nickname:</p>
+					<input type="text" id="nickName" class="inputForm nickNameField">
+				</div>
 
-  </div>
+				<input type="submit" id="sendGameRoomDetails">
+				</button>
 
-  </div>
+			</div>
+		</div>
 
-  <script src="/static/js/gameHandler.js"></script>
-  <script src="/static/js/gameBoard.js"></script>
-  <script src="/static/js/gameController.js"></script>
-  <script src="/static/js/main.js"></script>
-  <script src="/static/js/rackets.js"></script>
-  <script src="/static/js/layoutController.js"></script>
+	</div>
+
+	</div>
+
+	<script src="/static/js/gameHandler.js"></script>
+	<script src="/static/js/gameBoard.js"></script>
+	<script src="/static/js/gameController.js"></script>
+	<script src="/static/js/main.js"></script>
+	<script src="/static/js/rackets.js"></script>
+	<script src="/static/js/layoutController.js"></script>
 
 </body>
 
