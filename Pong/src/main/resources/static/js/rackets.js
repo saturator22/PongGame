@@ -75,7 +75,7 @@ class GameBoard {
 
     renderData() {
         let scope = this;
-        setInterval(() => fetch('http://192.168.10.75:8000/test', {
+        setInterval(() => fetch('http://192.168.10.193:8000/test', {
                                                                     credentials: 'include'
                                                                   })
         .then(
@@ -86,7 +86,6 @@ class GameBoard {
                         scope.prepareGameBoard();
                     })
             .catch(function(err) {
-//                console.log("Error", err);
             }), 45)
     }
 
@@ -104,7 +103,6 @@ class GameBoard {
     }
 
     updateBall(parsedJson) {
-        console.log(parsedJson.ball.xPos);
         this.ball.xPos = parsedJson.ball.xPos;
         this.ball.yPos = parsedJson.ball.yPos;
     }

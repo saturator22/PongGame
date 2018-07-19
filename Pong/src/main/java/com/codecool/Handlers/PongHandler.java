@@ -18,7 +18,7 @@ public class PongHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.75:8000/test");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.193:8000/test");
         String method = exchange.getRequestMethod();
         String cookieStr = exchange.getRequestHeaders().getFirst("Cookie");
 

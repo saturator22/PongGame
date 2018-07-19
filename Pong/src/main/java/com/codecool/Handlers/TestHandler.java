@@ -26,7 +26,7 @@ public class TestHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) {
-        httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.75:8000/test");
+        httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.193:8000/test");
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         String method = httpExchange.getRequestMethod();
 
@@ -36,13 +36,13 @@ public class TestHandler implements HttpHandler {
         } else {
             cookie = HttpCookie.parse(cookieStr).get(0);
             gameRoom = gameRooms.get(getRoomIdFromCookie(cookie));
-            System.out.println(gameRoom);
+//            System.out.println(gameRoom);
         }
 
         if (method.equals(GET_METHOD)) {
             if (gameRoom != null) {
                 updateGameroom(gameRoom);
-                System.out.println(gameRoom.getBall().getxPos());
+//                System.out.println(gameRoom.getBall().getxPos());
                 sendResponse(httpExchange, gameRoom.toJSON());
             } else {
                 sendResponse(httpExchange, "{}");
