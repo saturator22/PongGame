@@ -2,10 +2,16 @@ window.onload = function () {
 	let layoutController = new LayoutController();
 
 	layoutController.newGameButtonEventHandler();
-	layoutController.instructionsButtonEventHandler();
+  layoutController.instructionsButtonEventHandler();
+  layoutController.aboutButtonHandler();
 }
 
 class LayoutController {
+
+  aboutButtonHandler() {
+    let aboutButton = document.getElementById('aboutButton');
+    aboutButton.addEventListener('click', this.pressAboutButton);
+  }
 
 	newGameButtonEventHandler() {
 		let ngButton = document.getElementById('newGameButton');
@@ -79,14 +85,6 @@ class LayoutController {
       instructionsDiv.className = "displayInline fakeConsole";
       smallLogo.className = "hide";
 
-			// let logo = document.getElementById('pixelLogo');
-			// logo.className = "hide";
-			// let connectToRoomDiv = document.getElementById('joinGameroom');
-			// connectToRoomDiv.className = "displayInline fakeConsole";
-			// let statsContainer = document.getElementById("playerDetailsContainer");
-			// statsContainer.className = "displayInline";
-
-
 		} else if (instructionsButton.className === "active") {
 			instructionsButton.className = 'inactive';
 			buttonPressed.className = "hide";
@@ -94,11 +92,30 @@ class LayoutController {
       instructionsDiv.className = "hide fakeConsole";
       smallLogo.className = "displayInline";
 
+		}
+  }
+  
+  pressAboutButton() {		
+		let aboutButton = document.getElementById('aboutButton');
+		let buttonInactive = document.getElementById('aboutBtn');
+		let buttonPressed = document.getElementById('aboutBtnPressed');
+    let aboutDiv = document.getElementById('about');
+    let mainLogo = document.getElementById('pixelLogo');
 
-			// let connectToRoomDiv = document.getElementById('joinGameroom');
-			// connectToRoomDiv.className = "hide fakeConsole";
-			// let logo = document.getElementById('pixelLogo');
-			// logo.className = "displayInline";
+		if (aboutButton.className === "inactive") {
+			aboutButton.className = 'active';
+			buttonPressed.className = "displayInline";
+			buttonInactive.className = "hide";
+      aboutDiv.className = "displayInline fakeConsole";
+      // pongersTeamLogo.className = "hide";
+      mainLogo.className = "hide";
+
+		} else if (aboutButton.className === "active") {
+			aboutButton.className = 'inactive';
+			buttonPressed.className = "hide";
+			buttonInactive.className = 'displayInline';
+      aboutDiv.className = "hide fakeConsole";
+      pongersTeamLogo.className = "displayInline";
 		}
 	}
 
