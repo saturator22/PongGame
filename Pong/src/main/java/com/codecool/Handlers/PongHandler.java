@@ -34,14 +34,12 @@ public class PongHandler implements HttpHandler {
                 Map<String, String> parsedFormData = Redirector.getPostStringData(exchange);
                 String nickName = parsedFormData.get("nickName");
                 String roomId = parsedFormData.get("roomId");
-                System.out.println(nickName);
-                System.out.println(3);
 
                 cookie = assignCookieToGameRoom(exchange, roomId, nickName);
                 exchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
 
-                String html = loadSite("static/html/index.html");
-                sendResponse(exchange, html);
+//                String html = loadSite("static/html/index.html");
+                sendResponse(exchange, "TODO");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,7 +61,7 @@ public class PongHandler implements HttpHandler {
                 gameRoom.setFirstPlayer(player1);
                 TestHandler.addToGameRooms(roomId, gameRoom);
 
-            } else if((!isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() == null)) {
+            } else if(!isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() == null) {
                 GameRoom gameRoomToJoin = gameRooms.get(roomId);
                 cookie = createCookie(nickName, roomId, "P2");
                 player2 = new Player(240f, 795f, nickName, 0, 60f, 10f);
