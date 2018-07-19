@@ -35,7 +35,13 @@ public class Player {
     }
 
     public void setRacketYPos(float racketYPos) {
-        this.racketYPos = racketYPos;
+        if (racketYPos <= 0) {
+            this.racketYPos = 0;
+        } else if (racketYPos >= 480 - this.racketHeight) {
+            this.racketYPos = 480 - this.racketHeight;
+        } else {
+            this.racketYPos = racketYPos;
+        }
     }
 
     public float getRacketXPos() {
@@ -68,9 +74,14 @@ public class Player {
 
     public void changePosition(String direction) {
         if (direction.equals("up")) {
-            this.racketYPos -= 10;
+            setRacketYPos(this.racketYPos - 15);
         } else {
-            this.racketYPos += 10;
+            setRacketYPos(this.racketYPos + 15);
         }
+    }
+
+    public void resetGamePlayStats() {
+        this.racketYPos = 240;
+        this.score = 0;
     }
 }
