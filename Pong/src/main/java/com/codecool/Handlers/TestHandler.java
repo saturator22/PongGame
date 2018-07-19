@@ -50,7 +50,8 @@ public class TestHandler implements HttpHandler {
         }
     }
 
-    private void resetGameRoom(GameRoom gameRoom) {
+    public static void resetGameRoom(String roomId) {
+        GameRoom gameRoom = gameRooms.get(roomId);
         gameRoom.getFirstPlayer().resetGamePlayStats();
         gameRoom.getSecondPlayer().resetGamePlayStats();
         Ball newBall = new Ball(400f, 240f, 15f, 10f, 0.02f);
