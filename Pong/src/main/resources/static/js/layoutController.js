@@ -18,17 +18,23 @@ class LayoutController {
   }
 
   pressSubmitButton() {
-    var xhttp = new XMLHttpRequest();
+    try {
+        var xhttp = new XMLHttpRequest();
+        var scope = this;
+        xhttp.onreadystatechange =
+            function() {
+                if (this.readyState == 4) {
+                    scope.startGame();
+                }
+            };
 
-    var url = "/pong";
-    var params = `roomId=${document.getElementById("roomId").value}
-                  &nickName=${document.getElementById("nickName").value}`;
-
-    xhttp.open("POST", url, true);
-    xhttp.setRequestHeader('User-Input', "input");
-    xhttp.send(params);
-    console.log(this);
-    this.startGame();
+        var url = "/pong";
+        var params = `roomId=${document.getElementById("roomId").value}&nickName=${document.getElementById("nickName").value}`
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader('User-Input', "input");
+        xhttp.send(params);
+    } catch (err) {
+    }
   }
 
   pressNewGameButton() {

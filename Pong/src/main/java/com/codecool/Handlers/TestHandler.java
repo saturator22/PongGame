@@ -1,5 +1,6 @@
 package com.codecool.Handlers;
 
+import com.codecool.Helper.Redirector;
 import com.codecool.Model.Ball;
 import com.codecool.Model.GameRoom;
 import com.codecool.Model.TextInput;
@@ -22,15 +23,16 @@ public class TestHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) {
-        String cookieStr = httpExchange.getResponseHeaders().getFirst("Cookie");
+        String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         HttpCookie cookie = HttpCookie.parse(cookieStr).get(0);
         String method = httpExchange.getRequestMethod();
 
-        GameRoom gameRoom = gameRooms.get(cookie.getValue());
-
+        GameRoom gameRoom = gameRooms.get(getRoomIdFromCookie(cookie));
         if (method.equals(GET_METHOD)) {
-            updateGameroom(gameRoom);
-            sendResponse(httpExchange, gameRoom.toJSON());
+            if (gameRoom != null) {
+                updateGameroom(gameRoom);
+                sendResponse(httpExchange, gameRoom.toJSON());
+            }
 
         } else if (method.equals(POST_METHOD)) {
             String player = getPlayerFromCookie(cookie);
@@ -48,24 +50,26 @@ public class TestHandler implements HttpHandler {
         }
     }
 
-    private String getPlayerFromCookie(HttpCookie cookie) {
-        return cookie.getComment().split(":")[0];
+    private String getRoomIdFromCookie(HttpCookie cookie) {
+        try {
+            Map<String, String> parsedCookieValues = Redirector.parseFormData(cookie.toString());
+            return parsedCookieValues.get("roomId");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "undefined";
+        }
     }
 
-    public void updateScore(GameRoom gameRoom) {
-        float player1BoardEdge = -10;
-        float player2BoardEdge = 810;
-
-        float xPos = gameRoom.getBall().getxPos();
-
-        if (xPos <= player1BoardEdge) {
-            gameRoom.getSecondPlayer().addPoint();
-            gameRoom.getBall().reset();
-
-        } else if (xPos >= player2BoardEdge) {
-            gameRoom.getFirstPlayer().addPoint();
-            gameRoom.getBall().reset();
+    private String getPlayerFromCookie(HttpCookie cookie) {
+        try {
+            Map<String, String> parsedCookieValues = Redirector.parseFormData(cookie.toString());
+            String playerAndNickName = parsedCookieValues.get("player");
+            return playerAndNickName.split(":")[0];
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "undefined";
         }
+
     }
 
     public static Map<String, GameRoom> getGameRooms() {
@@ -94,6 +98,22 @@ public class TestHandler implements HttpHandler {
         ball.updateAngleIfCollision(gameRoom.getFirstPlayer());
         ball.updateAngleIfCollision(gameRoom.getSecondPlayer());
         ball.updatePosition();
+    }
+
+    public void updateScore(GameRoom gameRoom) {
+        float player1BoardEdge = -10;
+        float player2BoardEdge = 810;
+
+        float xPos = gameRoom.getBall().getxPos();
+
+        if (xPos <= player1BoardEdge) {
+            gameRoom.getSecondPlayer().addPoint();
+            gameRoom.getBall().reset();
+
+        } else if (xPos >= player2BoardEdge) {
+            gameRoom.getFirstPlayer().addPoint();
+            gameRoom.getBall().reset();
+        }
     }
 
     public TextInput readAndParseJSON(HttpExchange exchange) {
