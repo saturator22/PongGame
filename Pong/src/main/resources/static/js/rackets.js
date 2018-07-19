@@ -74,34 +74,23 @@ class GameBoard {
     }
 
     renderData() {
-        var xhttp = new XMLHttpRequest();
         let scope = this;
-        let cookie = this.getCookie("player");
-
-        if((this.racket1.name === "" || this.racket2.name === "") && cookie == 'undefined') {
-//            console.log(cookie);
-            if(cookie.includes("P1")) {
-                this.racket1.name = cookie;
-            } else if (cookie.includes("P2")) {
-                this.racket2.name = cookie;
-            }
-            this.renderPlayersNames();
-        }
-
-        xhttp.onreadystatechange =
-        function() {
-            if (this.readyState == 4 && this.status == 200) {
-                let parsedJson = JSON.parse(this.responseText);
-                scope.updateGameBoard(parsedJson);
-//                scope.renderData();
-            }
-        };
-        this.prepareGameBoard();
-        xhttp.open("GET", "/test", true);
-        xhttp.send();
+        setInterval(() => fetch('http://192.168.10.75:8000/test', {
+                                                                    credentials: 'include'
+                                                                  })
+        .then(
+                function(response) {
+                    return response.json()})
+        .then(function(data) {
+                        scope.updateGameBoard(data);
+                        scope.prepareGameBoard();
+                    })
+            .catch(function(err) {
+//                console.log("Error", err);
+            }), 45)
     }
 
-    
+
     getCookie(name) {
     	let value = "&" + document.cookie;
     	let parts = value.split("&" + name + "=");
@@ -110,12 +99,12 @@ class GameBoard {
 
 
     updateGameBoard(parsedJson) {
-//        console.log(parsedJson);
         this.updateRackets(parsedJson);
         this.updateBall(parsedJson);
     }
 
     updateBall(parsedJson) {
+        console.log(parsedJson.ball.xPos);
         this.ball.xPos = parsedJson.ball.xPos;
         this.ball.yPos = parsedJson.ball.yPos;
     }
@@ -150,8 +139,7 @@ class GameBoard {
 }
 
 let gameBoard = new GameBoard;
-let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 45);
-//let reloadPage = gameBoard.renderData();
+let reloadPage = gameBoard.renderData();
 
 gameBoard.prepareGameBoard();
 
