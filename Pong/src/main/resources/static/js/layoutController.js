@@ -5,6 +5,7 @@ window.onload = function () {
     layoutController.instructionsButtonEventHandler();
     layoutController.aboutButtonHandler();
     layoutController.submitButtonEventHandler();
+    layoutController.resetButtonEventHandler();
 
 }
 
@@ -29,6 +30,12 @@ class LayoutController {
         let submitButton = document.getElementById('sendGameRoomDetails');
         submitButton.addEventListener('click', this.pressSubmitButton);
     }
+
+    resetButtonEventHandler() {
+        let resetButton = document.getElementById('resetGameBtn');
+        resetButton.addEventListener('click', this.pressResetButton);
+    }
+
 
     pressNewGameButton() {
         let newGameButton = document.getElementById('newGameButton');
@@ -112,26 +119,34 @@ class LayoutController {
         }
     }
 
+    pressResetButton() {
+    console.log("reset button");
+        var xhttp = new XMLHttpRequest();
+        var url = "/reset";
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader('ResetRoom', "cookie");
+        xhttp.send();
+    }
 
     pressSubmitButton() {
-    var xhttp = new XMLHttpRequest();
-    var scope = this;
-    xhttp.onreadystatechange =
-        function() {
-            if (this.readyState == 4) {
-                let joinGameroomDiv = document.getElementById('joinGameroom');
-                joinGameroomDiv.className = "hide fakeConsole";
+        var xhttp = new XMLHttpRequest();
+        var scope = this;
+        xhttp.onreadystatechange =
+            function() {
+                if (this.readyState == 4) {
+                    let joinGameroomDiv = document.getElementById('joinGameroom');
+                    joinGameroomDiv.className = "hide fakeConsole";
 
-                let board = document.getElementById('myCanvas');
-                board.className = "displayInline";
-            }
-        };
+                    let board = document.getElementById('myCanvas');
+                    board.className = "displayInline";
+                }
+            };
 
-    var url = "/pong";
-    var params = `roomId=${document.getElementById("roomId").value}&nickName=${document.getElementById("nickName").value}`
-    xhttp.open("POST", url, true);
-    xhttp.setRequestHeader('User-Input', "input");
-    xhttp.send(params);
+        var url = "/pong";
+        var params = `roomId=${document.getElementById("roomId").value}&nickName=${document.getElementById("nickName").value}`
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader('User-Input', "input");
+        xhttp.send(params);
     }
 
 	startGame() {
