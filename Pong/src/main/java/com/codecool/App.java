@@ -1,6 +1,7 @@
 package com.codecool;
 
 import com.codecool.Handlers.PongHandler;
+import com.codecool.Handlers.ResetHandler;
 import com.codecool.Handlers.StaticHandler;
 import com.codecool.Handlers.TestHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -16,6 +17,7 @@ public class App {
 
         // set routes
         server.createContext("/test", new TestHandler());
+        server.createContext("/reset", new ResetHandler());
         server.createContext("/pong", new PongHandler());
         server.createContext("/static", new StaticHandler());
         // start listening
