@@ -114,6 +114,13 @@ body {
 	outline: none;
 }
 
+#aboutButton {
+	min-width: 200px;
+	background-color: transparent;
+	border: none;
+	outline: none;
+}
+
 /* form */
 
 .inputForm {
@@ -208,6 +215,12 @@ body {
 	position: absolute;
 	top: 150px;
 	left: 150px;
+}
+
+/* fake console / about section */
+
+#about {
+  top: 340px;
 }
 
 /* fake console / join server section */
