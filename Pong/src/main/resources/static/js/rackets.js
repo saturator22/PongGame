@@ -97,7 +97,7 @@ class GameBoard {
 
     renderData() {
         let scope = this;
-        setInterval(() => fetch('http://192.168.10.193:8000/test', {
+        setInterval(() => fetch('http://192.168.137.29:8000/test', {
                                                                     credentials: 'include'
                                                                   })
         .then(
