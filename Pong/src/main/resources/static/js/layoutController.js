@@ -101,21 +101,24 @@ class LayoutController {
 		let buttonPressed = document.getElementById('aboutBtnPressed');
     let aboutDiv = document.getElementById('about');
     let mainLogo = document.getElementById('pixelLogo');
+    let smallLogo = document.getElementById('pixelLogoSmall');
+    let pongTeamLogo = document.getElementById('pongTeamLogo');
 
 		if (aboutButton.className === "inactive") {
 			aboutButton.className = 'active';
 			buttonPressed.className = "displayInline";
 			buttonInactive.className = "hide";
       aboutDiv.className = "displayInline fakeConsole";
-      // pongersTeamLogo.className = "hide";
       mainLogo.className = "hide";
+      smallLogo.className = "hide";
+      pongTeamLogo.className = "displayInline";
 
 		} else if (aboutButton.className === "active") {
 			aboutButton.className = 'inactive';
 			buttonPressed.className = "hide";
 			buttonInactive.className = 'displayInline';
       aboutDiv.className = "hide fakeConsole";
-      pongersTeamLogo.className = "displayInline";
+      pongTeamLogo.className = "hide";
 		}
 	}
 
