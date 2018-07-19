@@ -50,6 +50,13 @@ public class TestHandler implements HttpHandler {
         }
     }
 
+    private void resetGameRoom(GameRoom gameRoom) {
+        gameRoom.getFirstPlayer().resetGamePlayStats();
+        gameRoom.getSecondPlayer().resetGamePlayStats();
+        Ball newBall = new Ball(400f, 240f, 15f, 10f, 0.02f);
+        gameRoom.setBall(newBall);
+    }
+
     private String getRoomIdFromCookie(HttpCookie cookie) {
         try {
             Map<String, String> parsedCookieValues = Redirector.parseFormData(cookie.toString());
@@ -83,8 +90,6 @@ public class TestHandler implements HttpHandler {
     public static void removeFromGameRooms(String roomId) {
         gameRooms.remove(roomId);
     }
-
-
 
     public void updateGameroom(GameRoom gameRoom) {
         updateBall(gameRoom);
