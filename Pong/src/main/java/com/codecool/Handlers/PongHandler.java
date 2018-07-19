@@ -20,13 +20,11 @@ public class PongHandler implements HttpHandler {
     public void handle(HttpExchange exchange) {
         String method = exchange.getRequestMethod();
         String cookieStr = exchange.getRequestHeaders().getFirst("Cookie");
-        System.out.println("Cookie: " + cookieStr);
 
         try {
             if (method.equals("GET")) {
                 if (cookieStr != null) {
                     exchange.getResponseHeaders().add("Set-Cookie", cookieStr + ";Max-Age=0");
-                    System.out.println("Cookie po usunieciu: " + exchange.getRequestHeaders().getFirst("Cookie"));
                 }
                 String html = loadSite("static/html/index.html");
                 sendResponse(exchange, html);
@@ -59,7 +57,7 @@ public class PongHandler implements HttpHandler {
     public HttpCookie assignCookieToGameRoom(HttpExchange exchange, String roomId, String nickName) {
         Map<String, GameRoom> gameRooms = TestHandler.getGameRooms();
         HttpCookie cookie = null;
-        Ball ball = new Ball(400f, 240f, 15f, 10f, 0.02f);
+        Ball ball = new Ball(400f, 240f, 15f, 4f, 0.02f);
         Player player1;
         Player player2;
         GameRoom gameRoom = new GameRoom(ball, null, null);

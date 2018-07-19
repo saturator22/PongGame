@@ -19,17 +19,15 @@ class Ball {
 
 class GameBoard {
     constructor() {
-        this.racket1 = new Racket(240, 5, "Wojtech");
-        this.racket2 = new Racket(240, 785, "Bart");
+        this.racket1 = new Racket(240, 5, "");
+        this.racket2 = new Racket(240, 780, "");
         this.ball = new Ball(400, 240, 10);
         this.renderPlayersNames();
     }
 
     renderPlayersNames() {
-      let player1name = document.getElementById("player1name");
-      player1name.innerHTML = this.racket1.name;
-      let player2name = document.getElementById("player2name");
-      player2name.innerHTML = this.racket2.name;
+      document.getElementById("player1name").innerHTML = this.racket1.name;
+      document.getElementById("player2name").innerHTML = this.racket2.name;
     }
 
     resetScores() {
@@ -42,7 +40,7 @@ class GameBoard {
     prepareGameBoard() {
         this.clear();
         let c = document.getElementById("myCanvas");
-        
+
         let gameLine = c.getContext("2d");
         gameLine.moveTo(400, 0);
         gameLine.lineTo(400, 480);
@@ -70,7 +68,7 @@ class GameBoard {
     clear() {
         let c = document.getElementById("myCanvas");
         let ctx = c.getContext("2d");
-        
+
         ctx.clearRect(0, 0, c.width, c.height);
         ctx.beginPath();
     }
@@ -78,20 +76,41 @@ class GameBoard {
     renderData() {
         var xhttp = new XMLHttpRequest();
         let scope = this;
+        let cookie = this.getCookie("player");
+
+        if((this.racket1.name === "" || this.racket2.name === "") && cookie == 'undefined') {
+//            console.log(cookie);
+            if(cookie.includes("P1")) {
+                this.racket1.name = cookie;
+            } else if (cookie.includes("P2")) {
+                this.racket2.name = cookie;
+            }
+            this.renderPlayersNames();
+        }
 
         xhttp.onreadystatechange =
         function() {
             if (this.readyState == 4 && this.status == 200) {
                 let parsedJson = JSON.parse(this.responseText);
                 scope.updateGameBoard(parsedJson);
+//                scope.renderData();
             }
         };
+        this.prepareGameBoard();
         xhttp.open("GET", "/test", true);
         xhttp.send();
-        this.prepareGameBoard();
     }
 
+    
+    getCookie(name) {
+    	let value = "&" + document.cookie;
+    	let parts = value.split("&" + name + "=");
+    	if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+
+
     updateGameBoard(parsedJson) {
+//        console.log(parsedJson);
         this.updateRackets(parsedJson);
         this.updateBall(parsedJson);
     }
@@ -104,6 +123,8 @@ class GameBoard {
     updateRackets(parsedJson) {
         this.racket1.yPosition = parsedJson.firstPlayer.racketYPos;
         this.racket2.yPosition = parsedJson.secondPlayer.racketYPos;
+        this.racket1.name = parsedJson.firstPlayer.name;
+        this.racket2.name = parsedJson.secondPlayer.name;
     }
 
     sendInput(direction) { // POST
@@ -130,6 +151,7 @@ class GameBoard {
 
 let gameBoard = new GameBoard;
 let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 45);
+//let reloadPage = gameBoard.renderData();
 
 gameBoard.prepareGameBoard();
 
