@@ -128,11 +128,11 @@ class GameBoard {
     }
 }
 
-window.onload = function() {
-    let gameBoard = new GameBoard;
-    let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 45);
+let gameBoard = new GameBoard;
+let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 45);
 
-    gameBoard.prepareGameBoard();
+gameBoard.prepareGameBoard();
 
-    this.document.addEventListener("keydown", gameBoard.handlePressedKey.bind(gameBoard));
-}
+this.document.addEventListener("keydown", gameBoard.handlePressedKey.bind(gameBoard));
+
+
