@@ -25,7 +25,7 @@ public class PongHandler implements HttpHandler {
                 if (cookieStr != null) {
                     exchange.getResponseHeaders().add("Set-Cookie", cookieStr + ";Max-Age=0");
                 }
-                String html = loadSite("/static/html/index.html");
+                String html = loadSite("static/html/index.html");
                 sendResponse(exchange, html);
             } else if (method.equals("POST")) {
                 handlePost(exchange);
