@@ -14,24 +14,38 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpCookie;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TestHandler implements HttpHandler {
     final String GET_METHOD = "GET";
     final String POST_METHOD = "POST";
     private static Map<String, GameRoom> gameRooms = new HashMap<>();
+    HttpCookie cookie;
+    GameRoom gameRoom;
 
     @Override
-    public void handle(HttpExchange httpExchange) {
+    public void handle(HttpExchange httpExchange) throws IOException {
+        httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.193:8000/test");
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
-        HttpCookie cookie = HttpCookie.parse(cookieStr).get(0);
         String method = httpExchange.getRequestMethod();
 
-        GameRoom gameRoom = gameRooms.get(getRoomIdFromCookie(cookie));
+        if(cookieStr == null) {
+            gameRoom = null;
+            cookie = null;
+        } else {
+            cookie = HttpCookie.parse(cookieStr).get(0);
+            gameRoom = gameRooms.get(getRoomIdFromCookie(cookie));
+//            System.out.println(gameRoom);
+        }
+
         if (method.equals(GET_METHOD)) {
             if (gameRoom != null) {
                 updateGameroom(gameRoom);
+//                System.out.println(gameRoom.getBall().getxPos());
                 sendResponse(httpExchange, gameRoom.toJSON());
+            } else {
+                sendResponse(httpExchange, "{}");
             }
 
         } else if (method.equals(POST_METHOD)) {
@@ -146,7 +160,7 @@ public class TestHandler implements HttpHandler {
         return jsonString;
     }
 
-    public void sendResponse(HttpExchange exchange, String response) {
+    public void sendResponse(HttpExchange exchange, String response) throws IOException {
         byte[] bytes = response.getBytes();
         try {
             exchange.sendResponseHeaders(200, bytes.length);

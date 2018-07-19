@@ -18,8 +18,10 @@ public class PongHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.193:8000/test");
         String method = exchange.getRequestMethod();
-        String cookieStr = exchange.getResponseHeaders().getFirst("Cookie");
+        String cookieStr = exchange.getRequestHeaders().getFirst("Cookie");
+
         try {
             if (method.equals("GET")) {
                 if (cookieStr != null) {
@@ -70,7 +72,7 @@ public class PongHandler implements HttpHandler {
             } else if ((isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() == null)) {
                 GameRoom gameRoomToJoin = gameRooms.get(roomId);
                 cookie = createCookie(nickName, roomId, "P2");
-                player2 = new Player(240f, 775f, nickName, 0, 60f, 10f);
+                player2 = new Player(240f, 780f, nickName, 0, 60f, 10f);
                 gameRoomToJoin.setSecondPlayer(player2);
                 TestHandler.addToGameRooms(roomId, gameRoomToJoin);
 

@@ -20,7 +20,7 @@ class Ball {
 class GameBoard {
     constructor() {
         this.racket1 = new Racket(240, 5, "Player One");
-        this.racket2 = new Racket(240, 775, "Player Two");
+        this.racket2 = new Racket(240, 780, "Player Two");
         this.ball = new Ball(400, 240, 10);
         this.renderPlayersNames();
     }
@@ -50,16 +50,16 @@ class GameBoard {
     }
 
     resetScores() {
-      let player1score = document.getElementById("player1score");
-      player1score.innerHTML("0");
-      let player2score = document.getElementById("player2score");
-      player2score.innerHTML("0");
+        let player1score = document.getElementById("player1score");
+        player1score.innerHTML("0");
+        let player2score = document.getElementById("player2score");
+        player2score.innerHTML("0");
     }
 
     prepareGameBoard() {
         this.clear();
         let c = document.getElementById("myCanvas");
-        
+
         let gameLine = c.getContext("2d");
         gameLine.moveTo(400, 0);
         gameLine.lineTo(400, 480);
@@ -90,26 +90,34 @@ class GameBoard {
     clear() {
         let c = document.getElementById("myCanvas");
         let ctx = c.getContext("2d");
-        
+
         ctx.clearRect(0, 0, c.width, c.height);
         ctx.beginPath();
     }
 
     renderData() {
-        var xhttp = new XMLHttpRequest();
         let scope = this;
-
-        xhttp.onreadystatechange =
-        function() {
-            if (this.readyState == 4 && this.status == 200) {
-                let parsedJson = JSON.parse(this.responseText);
-                scope.updateGameBoard(parsedJson);
-            }
-        };
-        xhttp.open("GET", "/test", true);
-        xhttp.send();
-        this.prepareGameBoard();
+        setInterval(() => fetch('http://192.168.10.193:8000/test', {
+                                                                    credentials: 'include'
+                                                                  })
+        .then(
+                function(response) {
+                    return response.json()})
+        .then(function(data) {
+                        scope.updateGameBoard(data);
+                        scope.prepareGameBoard();
+                    })
+            .catch(function(err) {
+            }), 45)
     }
+
+
+    getCookie(name) {
+    	let value = "&" + document.cookie;
+    	let parts = value.split("&" + name + "=");
+    	if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+
 
     updateGameBoard(parsedJson) {
         this.updateRackets(parsedJson);
@@ -129,7 +137,6 @@ class GameBoard {
         this.racket2.yPosition = parsedJson.secondPlayer.racketYPos;
         this.racket2.name = parsedJson.secondPlayer.name;
         this.racket2.score = parsedJson.secondPlayer.score;
-
     }
 
     sendInput(direction) { // POST
@@ -155,7 +162,7 @@ class GameBoard {
 }
 
 let gameBoard = new GameBoard;
-let reloadPage = setInterval(gameBoard.renderData.bind(gameBoard), 45);
+let reloadPage = gameBoard.renderData();
 
 gameBoard.prepareGameBoard();
 
