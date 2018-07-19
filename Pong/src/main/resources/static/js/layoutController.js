@@ -67,7 +67,8 @@ class LayoutController {
 		let buttonInactive = document.getElementById('instructionsBtn');
 		let buttonPressed = document.getElementById('instructionsBtnPressed');
 		let mainLogo = document.getElementById('pixelLogo');
-		let instructionsDiv = document.getElementById('instructions');
+    let instructionsDiv = document.getElementById('instructions');
+    let smallLogo = document.getElementById('pixelLogoSmall');
 
 
 		if (instructionsButton.className === "inactive") {
@@ -75,7 +76,8 @@ class LayoutController {
 			buttonPressed.className = "displayInline";
 			buttonInactive.className = "hide";
 			mainLogo.className = "hide";
-			instructionsDiv.className = "displayInline fakeConsole";
+      instructionsDiv.className = "displayInline fakeConsole";
+      smallLogo.className = "hide";
 
 			// let logo = document.getElementById('pixelLogo');
 			// logo.className = "hide";
@@ -89,7 +91,8 @@ class LayoutController {
 			instructionsButton.className = 'inactive';
 			buttonPressed.className = "hide";
 			buttonInactive.className = 'displayInline';
-			instructionsDiv.className = "hide fakeConsole";
+      instructionsDiv.className = "hide fakeConsole";
+      smallLogo.className = "displayInline";
 
 
 			// let connectToRoomDiv = document.getElementById('joinGameroom');
