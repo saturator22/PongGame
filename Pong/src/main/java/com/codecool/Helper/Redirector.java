@@ -25,7 +25,7 @@ public class Redirector {
         return parseFormData(formData);
     }
 
-    private static Map <String, String> parseFormData(String formData) throws UnsupportedEncodingException {
+    public static Map <String, String> parseFormData(String formData) throws UnsupportedEncodingException {
         Map <String, String> map = new HashMap<>();
         String[] pairs = formData.split("&");
         for (String pair : pairs) {
