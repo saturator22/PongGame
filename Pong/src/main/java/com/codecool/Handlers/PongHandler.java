@@ -58,7 +58,7 @@ public class PongHandler implements HttpHandler {
     public HttpCookie assignCookieToGameRoom(HttpExchange exchange, String roomId, String nickName) {
         Map<String, GameRoom> gameRooms = TestHandler.getGameRooms();
         HttpCookie cookie = null;
-        Ball ball = new Ball(400f, 240f, 0f, 10f, 0.02f);
+        Ball ball = new Ball(400f, 240f, 0f, 8f, 0.0005f);
         Player player1;
         Player player2;
         GameRoom gameRoom = new GameRoom(ball, null, null);
