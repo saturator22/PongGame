@@ -31,21 +31,19 @@ public class GameHandler implements HttpHandler {
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         String method = httpExchange.getRequestMethod();
 
-        if(cookieStr == null) {
-            gameRoom = null;
-            cookie = null;
-        } else {
+        if(cookieStr != null) {
             cookie = HttpCookie.parse(cookieStr).get(0);
-            gameRoom = gameRooms.get(getRoomIdFromCookie(cookie));
-        }
+            String roomId = getRoomIdFromCookie(cookie);
 
-        if (method.equals(GET_METHOD)) {
-            if (gameRoom != null) {
-                updateGameroom(gameRoom);
-                sendResponse(httpExchange, gameRoom.toJSON());
-            } else {
-                sendResponse(httpExchange, "{}");
+            if (method.equals(GET_METHOD)) {
+                handleGetMethod(httpExchange, roomId);
+
+            } else if (method.equals(POST_METHOD)) {
+                handlePostMethod(httpExchange, cookie, roomId);
             }
+        } else {
+            sendResponse(httpExchange, "{}");
+        }
 
     }
 
