@@ -21,7 +21,7 @@ public class PhysicsController {
 
     public void updateBall(GameRoom gameRoom) {
         updateBallAngle(gameRoom.getBall(), gameRoom.getFirstPlayer(), gameRoom.getSecondPlayer());
-        updatePosition(gameRoom.getBall());
+        updatePositionAndSpeed(gameRoom.getBall());
     }
 
     private void updateBallAngle(Ball ball, Player player1, Player player2) {
@@ -32,7 +32,7 @@ public class PhysicsController {
 
     private void updateAngleIfOnBoardEdge(Ball ball) {
         if (isOnEdge(ball)) {
-            normailzeBallPosition(ball);
+            normalizeBallPosition(ball);
             normalizeAngle(ball);
             updateAngleAfterBounce(ball);
         }
@@ -42,7 +42,7 @@ public class PhysicsController {
         return (ball.getyPos() <= 0 || ball.getyPos() >= boardHeight - ball.getBallSize());
     }
 
-    private void normailzeBallPosition(Ball ball) {
+    private void normalizeBallPosition(Ball ball) {
         if (ball.getyPos() <= 0) {
             ball.setyPos(0);
         } else {
@@ -124,7 +124,29 @@ public class PhysicsController {
         return minAngle + ((maxAngle - minAngle) * percentage);
     }
 
-    private void updatePosition(Ball ball) {
+    private void updatePositionAndSpeed(Ball ball) {
+        updatePosition(ball);
+        updateSpeed(ball);
+    }
 
+    private void updatePosition(Ball ball) {
+        float angle = ball.getAngle();
+        float speed = ball.getSpeed();
+        double xShift = speed * Math.cos(getAngleAsRadian(angle));
+        double yShift = speed * Math.sin(getAngleAsRadian(angle));
+        float newX = ball.getxPos() + (float) xShift;
+        float newY = ball.getyPos() + (float) yShift;
+        ball.setxPos(newX);
+        ball.setyPos(newY);
+    }
+
+    private void updateSpeed(Ball ball) {
+        float newSpeed = ball.getSpeed() + ball.getSpeedIncreaseRate();
+        ball.setSpeed(newSpeed);
+    }
+
+    private float getAngleAsRadian(float angle) {
+        double radian = angle * Math.PI / 180;
+        return (float) radian;
     }
 }
