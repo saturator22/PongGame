@@ -31,7 +31,35 @@ public class PhysicsController {
     }
 
     private void updateAngleIfOnBoardEdge(Ball ball) {
+        if (isOnEdge(ball)) {
+            normailzeBallPosition(ball);
+            normalizeAngle(ball);
+            updateAngleAfterBounce(ball);
+        }
+    }
 
+    private boolean isOnEdge(Ball ball) {
+        return (ball.getyPos() <= 0 || ball.getyPos() >= boardHeight - ball.getBallSize());
+    }
+
+    private void normailzeBallPosition(Ball ball) {
+        if (ball.getyPos() <= 0) {
+            ball.setyPos(0);
+        } else {
+            ball.setyPos(boardHeight - ball.getBallSize());
+        }
+    }
+
+    /**
+     * Method prevents ball from having angle out of range <0-360)
+     * @param ball - Ball object to be updated
+     */
+    private void normalizeAngle(Ball ball) {
+        ball.setAngle(ball.getAngle() % 360);
+    }
+
+    private void updateAngleAfterBounce(Ball ball) {
+        ball.setAngle(360 - ball.getAngle());
     }
 
     private void updateAngleIfCollision(Ball ball, Player player) {
