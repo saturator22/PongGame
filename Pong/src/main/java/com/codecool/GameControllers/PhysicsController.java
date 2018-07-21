@@ -64,7 +64,7 @@ public class PhysicsController {
 
     private void updateAngleIfCollision(Ball ball, Player player) {
         if (areColliding(ball, player)) {
-            // TODO
+            ball.setAngle(calcBounceAngle(ball, player));
         }
     }
 
@@ -84,6 +84,44 @@ public class PhysicsController {
             collision = false;
         }
         return collision;
+    }
+
+    private float calcBounceAngle(Ball ball, Player player) {
+        if (isOnLeftSide(ball)) {
+            return bounceRightAngle(ball, player);
+        } else {
+            return bounceLeftAngle(ball, player);
+        }
+    }
+
+    private boolean isOnLeftSide(Ball ball) {
+        return ball.getxPos() <= boardWidth / 2;
+    }
+
+    private float bounceRightAngle(Ball ball, Player player) {
+        float hitPositionAsPercent = calcHitPositionAsPercent(ball, player);
+        return getAngleBetween(300f, 420f, hitPositionAsPercent);
+    }
+
+    private float bounceLeftAngle(Ball ball, Player player) {
+        float hitPositionAsPercent =  1 - calcHitPositionAsPercent(ball, player);
+        return getAngleBetween(120f, 240f, hitPositionAsPercent);
+    }
+
+    /**
+     * relativeBallCenter is a variable that is in range from 0 (top of board)
+     *      to player racket height (default 60).
+     * @param ball - Ball colliding with player.
+     * @param player - Object containing data about racket position.
+     * @return place of collision described as percentage 0%:top of racket, 100%:bottom of racket.
+     */
+    private float calcHitPositionAsPercent(Ball ball, Player player) {
+        float relativeBallCenter = ball.getBallCenterYPos() - player.getRacketYPos();
+        return relativeBallCenter / player.getRacketHeight();
+    }
+
+    private float getAngleBetween(float minAngle, float maxAngle, float percentage) {
+        return minAngle + ((maxAngle - minAngle) * percentage);
     }
 
     private void updatePosition(Ball ball) {
