@@ -4,7 +4,7 @@ import com.codecool.GameControllers.PhysicsController;
 import com.codecool.Handlers.PongHandler;
 import com.codecool.Handlers.ResetHandler;
 import com.codecool.Handlers.StaticHandler;
-import com.codecool.Handlers.TestHandler;
+import com.codecool.Handlers.GameHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.net.InetSocketAddress;
@@ -19,7 +19,7 @@ public class App {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
         // set routes
-        server.createContext("/test", new TestHandler(physicsController));
+        server.createContext("/game", new GameHandler(physicsController));
         server.createContext("/reset", new ResetHandler());
         server.createContext("/pong", new PongHandler());
         server.createContext("/static", new StaticHandler());

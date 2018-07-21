@@ -97,7 +97,7 @@ class GameBoard {
 
     renderData() {
         let scope = this;
-        setInterval(() => fetch('http://192.168.10.193:8000/test', {
+        setInterval(() => fetch('http://192.168.10.193:8000/game', {
                                                                     credentials: 'include'
                                                                   })
         .then(
@@ -142,7 +142,7 @@ class GameBoard {
     sendInput(direction) { // POST
 
         var xhttp = new XMLHttpRequest();
-        var url = "/test";
+        var url = "/game";
         var params = JSON.stringify({"input" : direction});
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader('User-Input', "input");
