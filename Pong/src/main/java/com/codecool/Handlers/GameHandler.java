@@ -15,23 +15,22 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpCookie;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class TestHandler implements HttpHandler {
-    final String GET_METHOD = "GET";
-    final String POST_METHOD = "POST";
+public class GameHandler implements HttpHandler {
     private static Map<String, GameRoom> gameRooms = new HashMap<>();
     private PhysicsController physicsController;
-    HttpCookie cookie;
-    GameRoom gameRoom;
 
-    public TestHandler(PhysicsController physicsController) {
+    public GameHandler(PhysicsController physicsController) {
         this.physicsController = physicsController;
     }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+        final String GET_METHOD = "GET";
+        final String POST_METHOD = "POST";
+        HttpCookie cookie;
+        GameRoom gameRoom;
         httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.193:8000/test");
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         String method = httpExchange.getRequestMethod();
@@ -68,7 +67,7 @@ public class TestHandler implements HttpHandler {
         }
     }
 
-    public static void resetGameRoom(String roomId) {
+    static void resetGameRoom(String roomId) {
         GameRoom gameRoom = gameRooms.get(roomId);
         gameRoom.getFirstPlayer().resetGamePlayStats();
         gameRoom.getSecondPlayer().resetGamePlayStats();
@@ -97,11 +96,11 @@ public class TestHandler implements HttpHandler {
         }
     }
 
-    public static Map<String, GameRoom> getGameRooms() {
+    static Map<String, GameRoom> getGameRooms() {
         return gameRooms;
     }
 
-    public static void addToGameRooms(String roomId, GameRoom gameRoom) {
+    static void addToGameRooms(String roomId, GameRoom gameRoom) {
         gameRooms.put(roomId, gameRoom);
     }
 
@@ -109,12 +108,12 @@ public class TestHandler implements HttpHandler {
         gameRooms.remove(roomId);
     }
 
-    public void updateGameroom(GameRoom gameRoom) {
+    private void updateGameroom(GameRoom gameRoom) {
         physicsController.updateBall(gameRoom);
         updateScore(gameRoom);
     }
 
-    public void updateScore(GameRoom gameRoom) {
+    private void updateScore(GameRoom gameRoom) {
         final float player1BoardEdge = -10;
         final float player2BoardEdge = 810;
 
@@ -135,7 +134,7 @@ public class TestHandler implements HttpHandler {
         gameRoom.getSecondPlayer().resetPosition();
     }
 
-    public TextInput readAndParseJSON(HttpExchange exchange) {
+    private TextInput readAndParseJSON(HttpExchange exchange) {
         try {
             String jsonString = readExchangeContent(exchange);
             Gson gson = new Gson();
@@ -147,7 +146,7 @@ public class TestHandler implements HttpHandler {
         }
     }
 
-    public String readExchangeContent(HttpExchange exchange) {
+    private String readExchangeContent(HttpExchange exchange) {
         String jsonString = "";
         try {
             InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
@@ -159,7 +158,7 @@ public class TestHandler implements HttpHandler {
         return jsonString;
     }
 
-    public void sendResponse(HttpExchange exchange, String response) throws IOException {
+    private void sendResponse(HttpExchange exchange, String response) throws IOException {
         byte[] bytes = response.getBytes();
         try {
             exchange.sendResponseHeaders(200, bytes.length);

@@ -51,12 +51,11 @@ public class PongHandler implements HttpHandler {
     }
 
     private String convertCookieToString(HttpCookie cookie) {
-        String result = "roomId=" + cookie.getValue() + "&player=" + cookie.getComment();
-        return result;
+        return "roomId=" + cookie.getValue() + "&player=" + cookie.getComment();
     }
 
-    public HttpCookie assignCookieToGameRoom(HttpExchange exchange, String roomId, String nickName) {
-        Map<String, GameRoom> gameRooms = TestHandler.getGameRooms();
+    private HttpCookie assignCookieToGameRoom(HttpExchange exchange, String roomId, String nickName) {
+        Map<String, GameRoom> gameRooms = GameHandler.getGameRooms();
         HttpCookie cookie = null;
         Ball ball = new Ball(400f, 240f, 0f, 8f, 0.0005f);
         Player player1;
@@ -68,13 +67,13 @@ public class PongHandler implements HttpHandler {
                 cookie = createCookie(nickName, roomId, "P1");
                 player1 = new Player(210f, 5f, nickName, 0, 60f, 10f);
                 gameRoom.setFirstPlayer(player1);
-                TestHandler.addToGameRooms(roomId, gameRoom);
+                GameHandler.addToGameRooms(roomId, gameRoom);
             } else if ((isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() == null)) {
                 GameRoom gameRoomToJoin = gameRooms.get(roomId);
                 cookie = createCookie(nickName, roomId, "P2");
                 player2 = new Player(210f, 780f, nickName, 0, 60f, 10f);
                 gameRoomToJoin.setSecondPlayer(player2);
-                TestHandler.addToGameRooms(roomId, gameRoomToJoin);
+                GameHandler.addToGameRooms(roomId, gameRoomToJoin);
 
             } else if ((!isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() != null)) {
                 Redirector.redirect(exchange, "/pong");
@@ -86,38 +85,41 @@ public class PongHandler implements HttpHandler {
     }
 
     private boolean isRoomCreated(String roomId) {
-        Map<String, GameRoom> gameRooms = TestHandler.getGameRooms();
+        Map<String, GameRoom> gameRooms = GameHandler.getGameRooms();
 
         return gameRooms.containsKey(roomId);
     }
 
 
-    public HttpCookie createCookie(String nickName, String roomId, String player) {
+    private HttpCookie createCookie(String nickName, String roomId, String player) {
         HttpCookie cookie = new HttpCookie("sessionId", roomId);
         cookie.setComment(player + ":" + nickName);
         return cookie;
     }
 
-    public String loadSite(String fileName) {
+    private String loadSite(String fileName) {
         StringBuilder result = new StringBuilder();
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(fileName).getFile());
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource(fileName).getFile());
+            Scanner scanner = new Scanner(file);
 
-        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 result.append(scanner.nextLine());
             }
 
-        } catch (IOException | NullPointerException e) {
+        } catch (NullPointerException e) {
             return "404: File not found";
+        } catch (IOException e) {
+            return "IO exception";
         }
 
         return result.toString();
 
     }
 
-    public void sendResponse(HttpExchange exchange, String response) {
+    private void sendResponse(HttpExchange exchange, String response) {
         byte[] bytes = response.getBytes();
         try {
             exchange.sendResponseHeaders(200, bytes.length);

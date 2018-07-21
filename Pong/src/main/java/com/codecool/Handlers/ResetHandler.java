@@ -15,7 +15,7 @@ public class ResetHandler implements HttpHandler {
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         HttpCookie cookie = HttpCookie.parse(cookieStr).get(0);
         String roomId = getRoomIdFromCookie(cookie);
-        TestHandler.resetGameRoom(roomId);
+        GameHandler.resetGameRoom(roomId);
     }
 
     private String getRoomIdFromCookie(HttpCookie cookie) {
