@@ -1,5 +1,6 @@
 package com.codecool.Handlers;
 
+import com.codecool.GameControllers.GameController;
 import com.codecool.Helper.Redirector;
 import com.codecool.Model.Ball;
 import com.codecool.Model.GameRoom;
@@ -15,6 +16,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class PongHandler implements HttpHandler {
+
+    private GameController gameController;
+
+    public PongHandler(GameController gameController) {
+        this.gameController = gameController;
+    }
 
     @Override
     public void handle(HttpExchange exchange) {
@@ -55,7 +62,7 @@ public class PongHandler implements HttpHandler {
     }
 
     private HttpCookie assignCookieToGameRoom(HttpExchange exchange, String roomId, String nickName) {
-        Map<String, GameRoom> gameRooms = GameHandler.getGameRooms();
+        Map<String, GameRoom> gameRooms = gameController.getGameRooms();
         HttpCookie cookie = null;
         Ball ball = new Ball(400f, 240f, 0f, 8f, 0.0005f);
         Player player1;
@@ -67,13 +74,13 @@ public class PongHandler implements HttpHandler {
                 cookie = createCookie(nickName, roomId, "P1");
                 player1 = new Player(210f, 5f, nickName, 0, 60f, 10f);
                 gameRoom.setFirstPlayer(player1);
-                GameHandler.addToGameRooms(roomId, gameRoom);
+                gameController.addToGameRooms(roomId, gameRoom);
             } else if ((isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() == null)) {
                 GameRoom gameRoomToJoin = gameRooms.get(roomId);
                 cookie = createCookie(nickName, roomId, "P2");
                 player2 = new Player(210f, 780f, nickName, 0, 60f, 10f);
                 gameRoomToJoin.setSecondPlayer(player2);
-                GameHandler.addToGameRooms(roomId, gameRoomToJoin);
+                gameController.addToGameRooms(roomId, gameRoomToJoin);
 
             } else if ((!isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() != null)) {
                 Redirector.redirect(exchange, "/pong");
@@ -85,8 +92,7 @@ public class PongHandler implements HttpHandler {
     }
 
     private boolean isRoomCreated(String roomId) {
-        Map<String, GameRoom> gameRooms = GameHandler.getGameRooms();
-
+        Map<String, GameRoom> gameRooms = gameController.getGameRooms();
         return gameRooms.containsKey(roomId);
     }
 
