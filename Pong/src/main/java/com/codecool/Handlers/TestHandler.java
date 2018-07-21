@@ -114,15 +114,6 @@ public class TestHandler implements HttpHandler {
         updateScore(gameRoom);
     }
 
-    public void updateBall(GameRoom gameRoom) {
-        Ball ball = gameRoom.getBall();
-
-        ball.updateAngleIfOnBoardEdge();
-        ball.updateAngleIfCollision(gameRoom.getFirstPlayer());
-        ball.updateAngleIfCollision(gameRoom.getSecondPlayer());
-        ball.updatePosition();
-    }
-
     public void updateScore(GameRoom gameRoom) {
         final float player1BoardEdge = -10;
         final float player2BoardEdge = 810;
