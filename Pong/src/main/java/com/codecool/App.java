@@ -15,8 +15,8 @@ public class App {
 
         PhysicsController physicsController = new PhysicsController(800, 480);
         PlayerController playerController = new PlayerController();
-        GameController gameController = new GameController(physicsController, playerController);
-
+        GameplayController gameplayController = new GameplayController(20);
+        GameController gameController = new GameController(physicsController, playerController, gameplayController);
 
         // create a server on port 8000
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
