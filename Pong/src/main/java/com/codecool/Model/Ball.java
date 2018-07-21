@@ -30,6 +30,7 @@ public class Ball {
         this.xPos = 400;
         this.yPos = 240;
         this.speed = 10;
+        this.angle = 0;
     }
 
     public float getxPos() {
