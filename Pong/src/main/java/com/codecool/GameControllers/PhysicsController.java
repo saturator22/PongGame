@@ -63,7 +63,27 @@ public class PhysicsController {
     }
 
     private void updateAngleIfCollision(Ball ball, Player player) {
+        if (areColliding(ball, player)) {
+            // TODO
+        }
+    }
 
+    private boolean areColliding(Ball ball, Player player) {
+        float ballLeft = ball.getxPos();
+        float ballRight = ballLeft + ball.getBallSize();
+        float ballTop = ball.getyPos();
+        float ballBottom = ballTop + ball.getBallSize();
+
+        float playerLeft = player.getRacketXPos();
+        float playerRight = playerLeft + player.getRacketWidth();
+        float playerTop = player.getRacketYPos();
+        float playerBottom = playerTop + player.getRacketHeight();
+
+        boolean collision = true;
+        if ((ballBottom < playerTop) || (ballTop > playerBottom) || (ballRight < playerLeft) || (ballLeft > playerRight)) {
+            collision = false;
+        }
+        return collision;
     }
 
     private void updatePosition(Ball ball) {
