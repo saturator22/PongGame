@@ -33,6 +33,10 @@ public class Ball {
         this.angle = 0;
     }
 
+    public float getBallSize() {
+        return ballSize;
+    }
+
     public float getxPos() {
         return xPos;
     }
