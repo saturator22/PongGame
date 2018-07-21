@@ -54,7 +54,7 @@ public class PongHandler implements HttpHandler {
         String cookieHeader = convertCookieToString(cookie);
         exchange.getResponseHeaders().add("Set-Cookie", cookieHeader);
 
-        sendResponse(exchange, "TODO");
+        sendResponse(exchange, "");
     }
 
     private String convertCookieToString(HttpCookie cookie) {
@@ -65,29 +65,40 @@ public class PongHandler implements HttpHandler {
         Map<String, GameRoom> gameRooms = gameController.getGameRooms();
         HttpCookie cookie = null;
         Ball ball = new Ball(400f, 240f, 0f, 8f, 0.0005f);
-        Player player1;
-        Player player2;
         GameRoom gameRoom = new GameRoom(ball, null, null);
 
         try {
             if (!isRoomCreated(roomId)) {
-                cookie = createCookie(nickName, roomId, "P1");
-                player1 = new Player(210f, 5f, nickName, 0, 60f, 10f);
-                gameRoom.setFirstPlayer(player1);
-                gameController.addToGameRooms(roomId, gameRoom);
-            } else if ((isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() == null)) {
-                GameRoom gameRoomToJoin = gameRooms.get(roomId);
-                cookie = createCookie(nickName, roomId, "P2");
-                player2 = new Player(210f, 780f, nickName, 0, 60f, 10f);
-                gameRoomToJoin.setSecondPlayer(player2);
-                gameController.addToGameRooms(roomId, gameRoomToJoin);
+                cookie = initGameRoom(roomId, nickName, gameRoom);
 
-            } else if ((!isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() != null)) {
+            } else if ((isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() == null)) {
+                cookie = finishGameRoomCreation(roomId, nickName, gameRooms);
+
+            } else {
                 Redirector.redirect(exchange, "/pong");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return cookie;
+    }
+
+    private HttpCookie finishGameRoomCreation(String roomId, String nickName, Map<String, GameRoom> gameRooms) {
+        GameRoom gameRoomToJoin = gameRooms.get(roomId);
+        HttpCookie cookie = createCookie(nickName, roomId, "P2");
+        Player player2 = new Player(210f, 780f, nickName, 0, 60f, 10f);
+        gameRoomToJoin.setSecondPlayer(player2);
+        gameController.addToGameRooms(roomId, gameRoomToJoin);
+        return cookie;
+    }
+
+    private HttpCookie initGameRoom(String roomId, String nickName, GameRoom gameRoom) {
+        HttpCookie cookie;
+        Player player1;
+        cookie = createCookie(nickName, roomId, "P1");
+        player1 = new Player(210f, 5f, nickName, 0, 60f, 10f);
+        gameRoom.setFirstPlayer(player1);
+        gameController.addToGameRooms(roomId, gameRoom);
         return cookie;
     }
 
