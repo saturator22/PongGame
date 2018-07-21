@@ -6,6 +6,19 @@ import com.codecool.Model.Player;
 
 public class PhysicsController {
 
+    private final int boardWidth;
+    private final int boardHeight;
+
+    public PhysicsController(int boardWidth, int boardHeight) {
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+    }
+
+    public PhysicsController() {
+        this.boardWidth = 800;
+        this.boardHeight = 480;
+    }
+
     public void updateBall(GameRoom gameRoom) {
         updateBallAngle(gameRoom.getBall(), gameRoom.getFirstPlayer(), gameRoom.getSecondPlayer());
         updatePosition(gameRoom.getBall());
