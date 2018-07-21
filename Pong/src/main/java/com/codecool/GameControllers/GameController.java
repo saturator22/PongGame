@@ -12,15 +12,19 @@ public class GameController {
     private Map<String, GameRoom> gameRooms = new HashMap<>();
     private PhysicsController physicsController;
     private PlayerController playerController;
+    private GameplayController gameplayController;
 
-    public GameController(PhysicsController physicsController, PlayerController playerController) {
+    public GameController(PhysicsController physicsController, PlayerController playerController, GameplayController gameplayController) {
         this.physicsController = physicsController;
         this.playerController = playerController;
+        this.gameplayController = gameplayController;
     }
 
     public void updateGameRoom(GameRoom gameRoom) {
-        physicsController.updateBall(gameRoom);
-        updateScores(gameRoom);
+        if (gameplayController.shouldUpdate(gameRoom)) {
+            physicsController.updateBall(gameRoom);
+            gameplayController.updateScores(gameRoom);
+        }
     }
 
     public void handleInputs(String roomId, String playerIdentifier, TextInput input) {
@@ -28,10 +32,6 @@ public class GameController {
         if (gameRoom != null) {
             playerController.handleInputs(gameRoom, playerIdentifier, input.toString());
         }
-    }
-
-    public void addToGameRooms(String roomId, GameRoom gameRoom) {
-        gameRooms.put(roomId, gameRoom);
     }
 
     public void resetGameRoom(String roomId) {
@@ -42,28 +42,11 @@ public class GameController {
         gameRoom.setBall(newBall);
     }
 
+    public void addToGameRooms(String roomId, GameRoom gameRoom) {
+        gameRooms.put(roomId, gameRoom);
+    }
+
     public Map<String, GameRoom> getGameRooms() {
         return this.gameRooms;
-    }
-
-    private void updateScores(GameRoom gameRoom) {
-        final float player1BoardEdge = -10;
-        final float player2BoardEdge = 810;
-
-        float xPos = gameRoom.getBall().getxPos();
-
-        if (xPos <= player1BoardEdge) {
-            gameRoom.getSecondPlayer().addPoint();
-            resetPositionsIn(gameRoom);
-        } else if (xPos >= player2BoardEdge) {
-            gameRoom.getFirstPlayer().addPoint();
-            resetPositionsIn(gameRoom);
-        }
-    }
-
-    private void resetPositionsIn(GameRoom gameRoom) {
-        gameRoom.getBall().reset();
-        gameRoom.getFirstPlayer().resetPosition();
-        gameRoom.getSecondPlayer().resetPosition();
     }
 }
