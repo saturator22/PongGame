@@ -80,8 +80,12 @@ public class Player {
         }
     }
 
+    public void resetPosition() {
+        this.racketYPos = 240 - (this.racketHeight / 2);
+    }
+
     public void resetGamePlayStats() {
-        this.racketYPos = 240;
+        resetPosition();
         this.score = 0;
     }
 }
