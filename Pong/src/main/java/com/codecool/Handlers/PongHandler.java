@@ -66,13 +66,13 @@ public class PongHandler implements HttpHandler {
         try {
             if (!isRoomCreated(roomId)) {
                 cookie = createCookie(nickName, roomId, "P1");
-                player1 = new Player(240f, 5f, nickName, 0, 60f, 10f);
+                player1 = new Player(210f, 5f, nickName, 0, 60f, 10f);
                 gameRoom.setFirstPlayer(player1);
                 TestHandler.addToGameRooms(roomId, gameRoom);
             } else if ((isRoomCreated(roomId) && gameRooms.get(roomId).getSecondPlayer() == null)) {
                 GameRoom gameRoomToJoin = gameRooms.get(roomId);
                 cookie = createCookie(nickName, roomId, "P2");
-                player2 = new Player(240f, 780f, nickName, 0, 60f, 10f);
+                player2 = new Player(210f, 780f, nickName, 0, 60f, 10f);
                 gameRoomToJoin.setSecondPlayer(player2);
                 TestHandler.addToGameRooms(roomId, gameRoomToJoin);
 
