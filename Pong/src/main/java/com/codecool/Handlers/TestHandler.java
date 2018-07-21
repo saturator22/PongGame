@@ -36,13 +36,11 @@ public class TestHandler implements HttpHandler {
         } else {
             cookie = HttpCookie.parse(cookieStr).get(0);
             gameRoom = gameRooms.get(getRoomIdFromCookie(cookie));
-//            System.out.println(gameRoom);
         }
 
         if (method.equals(GET_METHOD)) {
             if (gameRoom != null) {
                 updateGameroom(gameRoom);
-//                System.out.println(gameRoom.getBall().getxPos());
                 sendResponse(httpExchange, gameRoom.toJSON());
             } else {
                 sendResponse(httpExchange, "{}");
@@ -68,7 +66,7 @@ public class TestHandler implements HttpHandler {
         GameRoom gameRoom = gameRooms.get(roomId);
         gameRoom.getFirstPlayer().resetGamePlayStats();
         gameRoom.getSecondPlayer().resetGamePlayStats();
-        Ball newBall = new Ball(400f, 240f, 15f, 10f, 0.02f);
+        Ball newBall = new Ball(400f, 240f, 0f, 10f, 0.02f);
         gameRoom.setBall(newBall);
     }
 
@@ -91,7 +89,6 @@ public class TestHandler implements HttpHandler {
             e.printStackTrace();
             return "undefined";
         }
-
     }
 
     public static Map<String, GameRoom> getGameRooms() {
@@ -121,19 +118,24 @@ public class TestHandler implements HttpHandler {
     }
 
     public void updateScore(GameRoom gameRoom) {
-        float player1BoardEdge = -10;
-        float player2BoardEdge = 810;
+        final float player1BoardEdge = -10;
+        final float player2BoardEdge = 810;
 
         float xPos = gameRoom.getBall().getxPos();
 
         if (xPos <= player1BoardEdge) {
             gameRoom.getSecondPlayer().addPoint();
-            gameRoom.getBall().reset();
-
+            resetPositionsIn(gameRoom);
         } else if (xPos >= player2BoardEdge) {
             gameRoom.getFirstPlayer().addPoint();
-            gameRoom.getBall().reset();
+            resetPositionsIn(gameRoom);
         }
+    }
+
+    private void resetPositionsIn(GameRoom gameRoom) {
+        gameRoom.getBall().reset();
+        gameRoom.getFirstPlayer().resetPosition();
+        gameRoom.getSecondPlayer().resetPosition();
     }
 
     public TextInput readAndParseJSON(HttpExchange exchange) {
