@@ -1,8 +1,7 @@
 package com.codecool.Handlers;
 
-import com.codecool.GameControllers.PhysicsController;
+import com.codecool.GameControllers.GameController;
 import com.codecool.Helper.Redirector;
-import com.codecool.Model.Ball;
 import com.codecool.Model.GameRoom;
 import com.codecool.Model.TextInput;
 import com.google.gson.Gson;
@@ -14,23 +13,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpCookie;
-import java.util.HashMap;
 import java.util.Map;
 
 public class GameHandler implements HttpHandler {
-    private static Map<String, GameRoom> gameRooms = new HashMap<>();
-    private PhysicsController physicsController;
+    private GameController gameController;
 
-    public GameHandler(PhysicsController physicsController) {
-        this.physicsController = physicsController;
+    public GameHandler(GameController gameController) {
+        this.gameController = gameController;
     }
 
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+    public void handle(HttpExchange httpExchange) {
         final String GET_METHOD = "GET";
         final String POST_METHOD = "POST";
         HttpCookie cookie;
-        GameRoom gameRoom;
         httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.193:8000/test");
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         String method = httpExchange.getRequestMethod();
@@ -51,28 +47,23 @@ public class GameHandler implements HttpHandler {
                 sendResponse(httpExchange, "{}");
             }
 
-        } else if (method.equals(POST_METHOD)) {
-            String player = getPlayerFromCookie(cookie);
-            TextInput input = readAndParseJSON(httpExchange);
-
-            if(player.equalsIgnoreCase("p1")) {
-                gameRoom.getFirstPlayer().changePosition(input.toString());
-
-            } else if(player.equalsIgnoreCase("p2")) {
-                gameRoom.getSecondPlayer().changePosition(input.toString());
-            }
-
-            String textResponse = "";
-            sendResponse(httpExchange, textResponse);
-        }
     }
 
-    static void resetGameRoom(String roomId) {
-        GameRoom gameRoom = gameRooms.get(roomId);
-        gameRoom.getFirstPlayer().resetGamePlayStats();
-        gameRoom.getSecondPlayer().resetGamePlayStats();
-        Ball newBall = new Ball(400f, 240f, 0f, 10f, 0.02f);
-        gameRoom.setBall(newBall);
+    private void handlePostMethod(HttpExchange httpExchange, HttpCookie cookie, String roomId) {
+        String player = getPlayerFromCookie(cookie);
+        TextInput input = readAndParseJSON(httpExchange);
+        gameController.handleInputs(roomId, player, input);
+        sendResponse(httpExchange, "");
+    }
+
+    private void handleGetMethod(HttpExchange httpExchange, String roomId) {
+        GameRoom gameRoom = gameController.getGameRooms().get(roomId);
+        if (gameRoom != null) {
+            gameController.updateGameRoom(gameRoom);
+            sendResponse(httpExchange, gameRoom.toJSON());
+        } else {
+            sendResponse(httpExchange, "{}");
+        }
     }
 
     private String getRoomIdFromCookie(HttpCookie cookie) {
@@ -96,50 +87,11 @@ public class GameHandler implements HttpHandler {
         }
     }
 
-    static Map<String, GameRoom> getGameRooms() {
-        return gameRooms;
-    }
-
-    static void addToGameRooms(String roomId, GameRoom gameRoom) {
-        gameRooms.put(roomId, gameRoom);
-    }
-
-    public static void removeFromGameRooms(String roomId) {
-        gameRooms.remove(roomId);
-    }
-
-    private void updateGameroom(GameRoom gameRoom) {
-        physicsController.updateBall(gameRoom);
-        updateScore(gameRoom);
-    }
-
-    private void updateScore(GameRoom gameRoom) {
-        final float player1BoardEdge = -10;
-        final float player2BoardEdge = 810;
-
-        float xPos = gameRoom.getBall().getxPos();
-
-        if (xPos <= player1BoardEdge) {
-            gameRoom.getSecondPlayer().addPoint();
-            resetPositionsIn(gameRoom);
-        } else if (xPos >= player2BoardEdge) {
-            gameRoom.getFirstPlayer().addPoint();
-            resetPositionsIn(gameRoom);
-        }
-    }
-
-    private void resetPositionsIn(GameRoom gameRoom) {
-        gameRoom.getBall().reset();
-        gameRoom.getFirstPlayer().resetPosition();
-        gameRoom.getSecondPlayer().resetPosition();
-    }
-
     private TextInput readAndParseJSON(HttpExchange exchange) {
         try {
             String jsonString = readExchangeContent(exchange);
             Gson gson = new Gson();
-            TextInput parsedJSON = gson.fromJson(jsonString, TextInput.class);
-            return parsedJSON;
+            return gson.fromJson(jsonString, TextInput.class);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -158,7 +110,7 @@ public class GameHandler implements HttpHandler {
         return jsonString;
     }
 
-    private void sendResponse(HttpExchange exchange, String response) throws IOException {
+    private void sendResponse(HttpExchange exchange, String response) {
         byte[] bytes = response.getBytes();
         try {
             exchange.sendResponseHeaders(200, bytes.length);
