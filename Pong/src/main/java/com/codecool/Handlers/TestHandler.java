@@ -1,5 +1,6 @@
 package com.codecool.Handlers;
 
+import com.codecool.GameControllers.PhysicsController;
 import com.codecool.Helper.Redirector;
 import com.codecool.Model.Ball;
 import com.codecool.Model.GameRoom;
@@ -21,8 +22,13 @@ public class TestHandler implements HttpHandler {
     final String GET_METHOD = "GET";
     final String POST_METHOD = "POST";
     private static Map<String, GameRoom> gameRooms = new HashMap<>();
+    private PhysicsController physicsController;
     HttpCookie cookie;
     GameRoom gameRoom;
+
+    public TestHandler(PhysicsController physicsController) {
+        this.physicsController = physicsController;
+    }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -104,7 +110,7 @@ public class TestHandler implements HttpHandler {
     }
 
     public void updateGameroom(GameRoom gameRoom) {
-        updateBall(gameRoom);
+        physicsController.updateBall(gameRoom);
         updateScore(gameRoom);
     }
 
