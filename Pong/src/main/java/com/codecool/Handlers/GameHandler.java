@@ -27,7 +27,7 @@ public class GameHandler implements HttpHandler {
         final String GET_METHOD = "GET";
         final String POST_METHOD = "POST";
         HttpCookie cookie;
-        httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.10.193:8000/test");
+        httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://192.168.1.23:8000/test");
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         String method = httpExchange.getRequestMethod();
 
