@@ -45,40 +45,56 @@
         <div id="bottom"></div>
     </div>
 
-    <!-- <div id="controlsContainerSidebar">
-
-        <button id="newGameButton" class="inactive">
-            <img id="newGameBtn" class="displayInline" src="/static/images/buttons/newGameButton.png">
-            <img id="newGameBtnPressed" class="hide" src="/static/images/buttons/newGameButtonPressed.png">
-        </button>
-
-        <button id="instructionsButton" class="inactive">
-            <img id="instructionsBtn" class="displayInline" src="/static/images/buttons/instructionsButton.png">
-            <img id="instructionsBtnPressed" class="hide" src="/static/images/buttons/instructionsButtonPressed.png">
-        </button>
-
-        <button id="aboutButton" class="inactive">
-            <img id="aboutBtn" class="displayInline" src="/static/images/buttons/aboutButton.png">
-            <img id="aboutBtnPressed" class="hide" src="/static/images/buttons/aboutButtonPressed.png">
-        </button>
-
-        <button id="reset">
-            <img id="resetGameBtn" class="displayInline" src="/static/images/buttons/restarButton.png">
-        </button>
-    </div> -->
 
     <div id="boardContainer">
 
-        <canvas id="myCanvas" class="hide" width="800" height="480" style="border: 2px solid white"></canvas>
+        <img id="screenFrame" src="/static/images/preparedOlderScreenCropped.png">
 
-        <div id="playerDetailsContainer" class="hide">
-            <div id="player1name" class="playerInfo">Player One</div>
-            <div id="player1score" class="playerInfo">20</div>
-            <div id="player2name" class="playerInfo">Player Two</div>
-            <div id="player2score" class="playerInfo">0</div>
+        <!-- intro screen -->
+        <div id="intro" class="screenContent hide">
+            <img id="pixelLogo" src="/static/images/pixelLogo.png">
         </div>
 
-        <img id="pixelLogo" class="displayInline" src="/static/images/pixelLogo.png">
+        <!-- join game screen -->
+        <div id="joinGame" class="screenContent">
+            <div class="fakeScreen">
+                <img id="pixelLogoSmall" class="displayInline" src="/static/images/pixelLogoSmall.png">
+        
+                <div id="roomIdFormContainer">
+                    <p id="roomIdFormHeader" class="line1">Enter room ID:</p>
+                    <input type="text" id="roomId" class="inputForm roomIdFormField">
+                </div>
+        
+                <div id="nicknameFormContainer">
+                    <p id="nicknameFormHeader" class="line1">Enter nickname:</p>
+                    <input type="text" id="nickName" class="inputForm nickNameField">
+                </div>
+        
+                <input type="submit" id="sendGameRoomDetails">
+            </div>
+        </div>
+
+        <!-- game screen -->
+        <div id="game" class="screenContent hide">
+            <canvas id="myCanvas" width="800" height="480" style="border: 2px solid white"></canvas>
+
+            <div id="playerDetailsContainer">
+
+                <div id="player1">
+                    <div id="player1name" class="playerInfo">Player One</div>
+                    <div id="player1score" class="playerInfo">20</div>
+                </div>
+
+                <img id="playersDetailsLogo" src="/static/images/pixelLogoSmall.png">
+
+                <div id="player2">
+                    <div id="player2name" class="playerInfo">Player Two</div>
+                    <div id="player2score" class="playerInfo">0</div>
+                </div>
+            </div>
+        </div>
+
+
 
         <div id="instructions" class="hide fakeConsole">
 
@@ -118,26 +134,6 @@
                 </p>
             </div>
 
-        </div>
-
-        <div id="joinGameroom" class="hide fakeConsole">
-
-            <div class="fakeScreen">
-
-                <img id="pixelLogoSmall" class="displayInline" src="/static/images/pixelLogoSmall.png">
-
-                <div id="roomIdFormContainer">
-                    <p id="roomIdFormHeader" class="line1">Enter room ID:</p>
-                    <input type="text" id="roomId" class="inputForm roomIdFormField">
-                </div>
-
-                <div id="nicknameFormContainer">
-                    <p id="nicknameFormHeader" class="line1">Enter nickname:</p>
-                    <input type="text" id="nickName" class="inputForm nickNameField">
-                </div>
-
-                <input type="submit" id="sendGameRoomDetails">
-            </div>
         </div>
 
     </div>

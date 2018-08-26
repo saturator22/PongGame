@@ -1,4 +1,15 @@
+/* reset */
+
+html {
+    margin: 0;
+    padding: 0;;
+    height: 100%;
+}
+
 body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
     background-image: url('/static/images/seamlessBackground.jpg');
     background-repeat: repeat;
 }
@@ -10,82 +21,103 @@ body {
 }
 
 .displayInline {
-    display: inline;
+    display: block;
 }
 
 /* logo */
 
 #pixelLogo {
-    position: absolute;
-    bottom: 0;
-    left: 250px;
-    top: 220px;
+    width: 45%;
+    position: relative;
+    display: block;
+    margin: auto;
+    margin-top: 15%;
 }
 
 #pixelLogoSmall {
-    position: absolute;
-    top: -190px;
-    left: 275px;
-    z-index: 3;
+    position: relative;
 }
 
-/* game board section */
+/* old screen template */
+
+#screenFrame {
+    height: 100%;
+}
+
+/* old screen content container */
+
+.screenContent {
+    position: absolute;
+    height: 66%;
+    width: 73.5%;
+    top: 19%;
+    left: 13%;
+}
+
+/* old screen content wrapper */
 
 #boardContainer {
-    display: flex;
-    position: relative;
-    width: 1134px;
-    height: 1161px;
-    margin: auto;
-    text-align: center;
-    background: url('/static/images/preparedOlderScreenCropped.png');
-    background-repeat: no-repeat;
-}
-
-#myCanvas {
+    width: 100vw; 
+    height: 82.73vw; /* height:width ratio = 9/16 = .5625  */
+    max-height: 100vh;
+    max-width: 120.87vh; /* 16/9 = 1.778 */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: auto;
     position: absolute;
-    top: 150px;
-    left: 150px;
+    top:0;bottom:0; /* vertical center */
+    left:0;right:0; /* horizontal center */
+    overflow: hidden;
 }
 
 /* game board section / players details */
 
+#myCanvas {
+    width: 100%;
+    position: relative;
+}
+
 #playerDetailsContainer {
-    display: hide;
-    position: absolute;
-    top: 50px;
-    left: 0;
+    padding: 1%;
+    position: relative;
 }
 
 .playerInfo {
-    width: 200px;
-    font-size: 1.5vh;
+    font-size: 2vmin;
     font-family: "Press Start 2P";
     color: white;
 }
 
+#player1 {
+    float: left;
+}
+
+#player2 {
+    float: right;
+}
+
 #player1name {
-    position: absolute;
-    top: 650px;
-    left: 150px;
+    position: relative;
 }
 
 #player1score {
-    top: 690px;
-    position: absolute;
-    left: 150px;
+    position: relative;
 }
 
 #player2name {
-    position: absolute;
-    top: 650px;
-    left: 745px;
+    position: relative;
 }
 
 #player2score {
+    position: relative;
+    float: right;
+}
+
+#playersDetailsLogo {
+    width: 14%;
     position: absolute;
-    top: 690px;
-    left: 745px;
+    left: 42.5%;
 }
 
 /* button */
