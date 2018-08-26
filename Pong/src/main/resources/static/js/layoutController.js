@@ -47,13 +47,10 @@ class LayoutController {
             newGameButton.className = 'active';
             buttonPressed.className = "displayInline";
             buttonInactive.className = "hide";
-            let logo = document.getElementById('pixelLogo');
-            logo.className = "hide";
-            let connectToRoomDiv = document.getElementById('joinGameroom');
-            connectToRoomDiv.className = "displayInline fakeConsole";
-            let statsContainer = document.getElementById("playerDetailsContainer");
-            statsContainer.className = "displayInline";
-
+            let connectToRoomDiv = document.getElementById('joinGame');
+            connectToRoomDiv.className = "screenContent";
+            let startScreen = document.getElementById("intro");
+            startScreen.className = "screenContent hide";
 
         } else if (newGameButton.className === "active") {
             newGameButton.className = 'inactive';
@@ -135,11 +132,11 @@ class LayoutController {
         xhttp.onreadystatechange =
             function() {
                 if (this.readyState == 4) {
-                    let joinGameroomDiv = document.getElementById('joinGameroom');
-                    joinGameroomDiv.className = "hide fakeConsole";
+                    let joinGameroomDiv = document.getElementById('joinGame');
+                    joinGameroomDiv.className = "screenContent hide";
 
-                    let board = document.getElementById('myCanvas');
-                    board.className = "displayInline";
+                    let board = document.getElementById('game');
+                    board.className = "screenContent";
                 }
             };
 

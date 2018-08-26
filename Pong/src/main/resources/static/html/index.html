@@ -51,26 +51,21 @@
         <img id="screenFrame" src="/static/images/preparedOlderScreenCropped.png">
 
         <!-- intro screen -->
-        <div id="intro" class="screenContent hide">
+        <div id="intro" class="screenContent">
             <img id="pixelLogo" src="/static/images/pixelLogo.png">
         </div>
 
         <!-- join game screen -->
-        <div id="joinGame" class="screenContent">
-            <div class="fakeScreen">
-                <img id="pixelLogoSmall" class="displayInline" src="/static/images/pixelLogoSmall.png">
+        <div id="joinGame" class="screenContent hide">
         
-                <div id="roomIdFormContainer">
-                    <p id="roomIdFormHeader" class="line1">Enter room ID:</p>
-                    <input type="text" id="roomId" class="inputForm roomIdFormField">
-                </div>
-        
-                <div id="nicknameFormContainer">
-                    <p id="nicknameFormHeader" class="line1">Enter nickname:</p>
-                    <input type="text" id="nickName" class="inputForm nickNameField">
-                </div>
-        
-                <input type="submit" id="sendGameRoomDetails">
+            <img id="joinGameLogo" src="/static/images/pixelLogoSmall.png">
+
+            <div id="joinGameFormContainer">
+                    <p class="formHeader">Enter room ID:</p>
+                    <input type="text" id="roomId" class="inputForm">
+                    <p class="formHeader">Enter nickname:</p>
+                    <input type="text" id="nickName" class="inputForm">
+                    <input type="submit" id="sendGameRoomDetails">
             </div>
         </div>
 
@@ -93,8 +88,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div id="instructions" class="hide fakeConsole">
 

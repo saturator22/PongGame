@@ -24,6 +24,44 @@ body {
     display: block;
 }
 
+/* button */
+
+#controlsContainerSidebar {
+    width: 15%;
+    height: 100%;
+    padding-top: 10px;
+    display: block;
+    /* float: left; */
+}
+
+#newGameButton {
+    min-width: 200px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+#instructionsButton {
+    min-width: 200px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+#aboutButton {
+    min-width: 200px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+#reset {
+    min-width: 200px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
 /* logo */
 
 #pixelLogo {
@@ -120,120 +158,65 @@ body {
     left: 42.5%;
 }
 
-/* button */
-
-#controlsContainerSidebar {
-    width: 15%;
-    height: 100%;
-    padding-top: 10px;
-    display: block;
-    /* float: left; */
-}
-
-#newGameButton {
-    min-width: 200px;
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
-
-#instructionsButton {
-    min-width: 200px;
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
-
-#aboutButton {
-    min-width: 200px;
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
-
-#reset {
-    min-width: 200px;
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
-
 /* form */
+
+#joinGameLogo {
+    position: relative;
+    left: 40%;
+    padding: 2%;
+    width: 20%;
+    margin: auto;
+}
+
+#joinGameFormContainer {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+.formHeader {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    font-family: "Press Start 2P";
+    color: whitesmoke;
+    text-align: left;
+    font-size: 2.5vmin;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
 .inputForm {
     font-family: "Press Start 2P";
+    display: inline-block;
     width: 30%;
-    font-size: 20px;
+    font-size: 2.5vmin;
     color: #fff;
     background-color: transparent;
     border: none;
     outline: none;
-}
-
-/* form / nick name  */
-
-#nicknameFormContainer {
-    position: relative;
-    top: 60px;
-    left: 0;
-}
-
-#nickNameHeader {
-    display: inline-block;
-    top: 0;
-    left: 0;
-}
-
-.nickNameField {
-    display: inline-block;
-    position: absolute;
-    top: -1px;
-    left: 294px;
-}
-
-/* form / roomID  */
-
-#roomIdFormContainer {
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-#roomIdFormHeader {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.roomIdFormField {
-    display: inline-block;
-    position: absolute;
-    top: 19px;
-    left: 275px;
+    padding: 0;
+    margin: 0;
 }
 
 /* form / submit */
 
 #sendGameRoomDetails {
-    width: 240px;
-    height: 40px;
-    position: absolute;
-    top: 180px;
-    left: 280px;
+    display: block;
+    position: relative;
+    left: 35%;
+    font-family: "Press Start 2P";
+    font-size: 2.5vmin;
+    width: 30%;
     padding: 5px;
     background-color: white;
     color: black;
-    font-family: "Press Start 2P";
-    font-size: 20px;
     border-bottom: 4px black dotted;
     outline: none;
-}
-
-#sendGameRoomDetail:hover {
-    background-color: black;
-    color: white;
-    border-bottom: 4px white dotted;
+    margin: 3%;
 }
 
 /* fake console */
@@ -268,17 +251,6 @@ body {
 
 /* fake console / paragraph */
 
-p {
-    position: relative;
-    /* left: 180px;
-    margin-left: -8.5em; */
-    text-align: left;
-    font-size: 20px;
-    font-family: "Press Start 2P";
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-}
 
 /* fake console / cursor */
 
