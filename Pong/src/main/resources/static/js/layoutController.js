@@ -1,20 +1,49 @@
 window.onload = function () {
-	let layoutController = new LayoutController();
-
+    let layoutController = new LayoutController();
+    
 	layoutController.newGameButtonEventHandler();
     layoutController.instructionsButtonEventHandler();
     layoutController.aboutButtonHandler();
     layoutController.submitButtonEventHandler();
     layoutController.resetButtonEventHandler();
     layoutController.initSidebar();
-
 }
 
 class LayoutController {
 
+    constructor() {
+        this.uiElements = [];
+        this.uiElements.push(new ButtonModel("newGameButton", "newGameBtnPressed", "newGameBtn"));
+        this.uiElements.push(new ButtonModel("instructionsButton", "instructionsBtnPressed", "instructionsBtn"));
+        this.uiElements.push(new ButtonModel("aboutButton", "aboutBtnPressed", "aboutBtn"));
+    }
+
+    pressButton(buttonFieldName) {
+        for (var i = 0; i < this.uiElements.length; i++) {
+            let buttonObject = this.uiElements[i];
+
+            if (buttonObject.buttonId == buttonFieldName && buttonObject.state == false) {
+                let buttonInactive = document.getElementById(buttonObject.inactive);
+                let buttonActive = document.getElementById(buttonObject.active);
+
+                buttonInactive.className = "hide";
+                buttonActive.className = "displayInline";
+                buttonObject.state = true;
+
+            } else if (buttonObject.state == true) {
+                let buttonInactive = document.getElementById(buttonObject.inactive);
+                let buttonActive = document.getElementById(buttonObject.active);
+
+                buttonInactive.className = "displayInline";
+                buttonActive.className = "hide";
+                buttonObject.state = false;
+            }
+        }
+    }
+
     aboutButtonHandler() {
         let aboutButton = document.getElementById('aboutButton');
-        aboutButton.addEventListener('click', this.pressAboutButton);
+        aboutButton.addEventListener('click', this.pressButton("aboutButton"));
     }
 
     newGameButtonEventHandler() {
@@ -36,7 +65,6 @@ class LayoutController {
         let resetButton = document.getElementById('resetGameBtn');
         resetButton.addEventListener('click', this.pressResetButton);
     }
-
 
     pressNewGameButton() {
         let newGameButton = document.getElementById('newGameButton');
@@ -99,22 +127,22 @@ class LayoutController {
         let smallLogo = document.getElementById('pixelLogoSmall');
         let pongTeamLogo = document.getElementById('pongTeamLogo');
 
-        if (aboutButton.className === "inactive") {
-            aboutButton.className = 'active';
-            buttonPressed.className = "displayInline";
-            buttonInactive.className = "hide";
-            aboutDiv.className = "displayInline fakeConsole";
-            mainLogo.className = "hide";
-            smallLogo.className = "hide";
-            pongTeamLogo.className = "displayInline";
+        // if (aboutButton.className === "inactive") {
+        //     aboutButton.className = 'active';
+        //     buttonPressed.className = "displayInline";
+        //     buttonInactive.className = "hide";
+        //     aboutDiv.className = "displayInline fakeConsole";
+        //     mainLogo.className = "hide";
+        //     smallLogo.className = "hide";
+        //     pongTeamLogo.className = "displayInline";
 
-        } else if (aboutButton.className === "active") {
-            aboutButton.className = 'inactive';
-            buttonPressed.className = "hide";
-            buttonInactive.className = 'displayInline';
-            aboutDiv.className = "hide fakeConsole";
-            pongTeamLogo.className = "hide";
-        }
+        // } else if (aboutButton.className === "active") {
+        //     aboutButton.className = 'inactive';
+        //     buttonPressed.className = "hide";
+        //     buttonInactive.className = 'displayInline';
+        //     aboutDiv.className = "hide fakeConsole";
+        //     pongTeamLogo.className = "hide";
+        // }
     }
 
     pressResetButton() {
