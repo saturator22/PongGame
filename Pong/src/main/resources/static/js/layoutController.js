@@ -12,10 +12,37 @@ window.onload = function () {
 class LayoutController {
 
     constructor() {
+        this.screenContents = [];
+        this.screenContents.push(new ScreenContent("intro", true));
+        this.screenContents.push(new ScreenContent("joinGame", false));
+        this.screenContents.push(new ScreenContent("game", false));
+        this.screenContents.push(new ScreenContent("instructions", false));
+        this.screenContents.push(new ScreenContent("about", false));
+
         this.uiElements = [];
         this.uiElements.push(new ButtonModel("newGameButton", "newGameBtnPressed", "newGameBtn"));
         this.uiElements.push(new ButtonModel("instructionsButton", "instructionsBtnPressed", "instructionsBtn"));
         this.uiElements.push(new ButtonModel("aboutButton", "aboutBtnPressed", "aboutBtn"));
+    }
+
+    switchScreen(screenName) {
+        for (var i = 0; i < this.screenContents.length; i++) {
+            let screenContent = this.screenContents[i];
+
+            if (screenContent.sectionId == screenName && screenContent.state == false) {
+                let screen = document.getElementById(screenContent.sectionId);
+                screen.classList.add("displayInline");
+                screen.classList.remove("hide");
+                screenContent.state = true;
+
+            } else if (screenContent.state == true && screenContent.sectionId != screenName) {
+                let screen = document.getElementById(screenContent.sectionId);
+                screen.classList.remove("displayInline");
+                screen.classList.add("hide");                
+                screenContent.state = false;
+                console.log(screen);
+            }
+        }
     }
 
     pressButton(buttonFieldName) {
@@ -30,7 +57,7 @@ class LayoutController {
                 buttonActive.className = "displayInline";
                 buttonObject.state = true;
 
-            } else if (buttonObject.state == true) {
+            } else if (buttonObject.state == true && buttonObject.buttonId != buttonFieldName) {
                 let buttonInactive = document.getElementById(buttonObject.inactive);
                 let buttonActive = document.getElementById(buttonObject.active);
 
@@ -42,21 +69,34 @@ class LayoutController {
     }
 
     aboutButtonHandler() {
+        let scope = this;
         let aboutButton = document.getElementById('aboutButton');
-        aboutButton.addEventListener('click', this.pressButton("aboutButton"));
+        aboutButton.addEventListener('click', function () { 
+            scope.pressButton("aboutButton");
+            scope.switchScreen("about");
+        });
     }
 
     newGameButtonEventHandler() {
+        let scope = this;
         let ngButton = document.getElementById('newGameButton');
-        ngButton.addEventListener('click', this.pressNewGameButton);
+        ngButton.addEventListener('click', function () {
+            scope.pressButton("newGameButton");
+            scope.switchScreen("joinGame");
+        });
     }
 
     instructionsButtonEventHandler() {
+        let scope = this;
         let iButton = document.getElementById('instructionsButton');
-        iButton.addEventListener('click', this.pressInstructionsButton);
+        iButton.addEventListener('click', function() {
+            scope.pressButton("instructionsButton");
+            scope.switchScreen("instructions");
+        });
     }
 
     submitButtonEventHandler() {
+        let scope = this;
         let submitButton = document.getElementById('sendGameRoomDetails');
         submitButton.addEventListener('click', this.pressSubmitButton);
     }
@@ -64,85 +104,6 @@ class LayoutController {
     resetButtonEventHandler() {
         let resetButton = document.getElementById('resetGameBtn');
         resetButton.addEventListener('click', this.pressResetButton);
-    }
-
-    pressNewGameButton() {
-        let newGameButton = document.getElementById('newGameButton');
-        let buttonInactive = document.getElementById('newGameBtn');
-        let buttonPressed = document.getElementById('newGameBtnPressed');
-
-        if (newGameButton.className === "inactive") {
-            newGameButton.className = 'active';
-            buttonPressed.className = "displayInline";
-            buttonInactive.className = "hide";
-            let connectToRoomDiv = document.getElementById('joinGame');
-            connectToRoomDiv.className = "screenContent";
-            let startScreen = document.getElementById("intro");
-            startScreen.className = "screenContent hide";
-
-        } else if (newGameButton.className === "active") {
-            newGameButton.className = 'inactive';
-            buttonPressed.className = "hide";
-            buttonInactive.className = 'displayInline';
-            let connectToRoomDiv = document.getElementById('joinGameroom');
-            connectToRoomDiv.className = "hide fakeConsole";
-            let logo = document.getElementById('pixelLogo');
-            logo.className = "displayInline";
-        }
-    }
-
-	pressInstructionsButton() {
-		let instructionsButton = document.getElementById('instructionsButton');
-		let buttonInactive = document.getElementById('instructionsBtn');
-		let buttonPressed = document.getElementById('instructionsBtnPressed');
-		let mainLogo = document.getElementById('pixelLogo');
-        let instructionsDiv = document.getElementById('instructions');
-        let smallLogo = document.getElementById('pixelLogoSmall');
-
-
-        if (instructionsButton.className === "inactive") {
-            instructionsButton.className = 'active';
-            buttonPressed.className = "displayInline";
-            buttonInactive.className = "hide";
-            mainLogo.className = "hide";
-            instructionsDiv.className = "displayInline fakeConsole";
-            smallLogo.className = "hide";
-
-        } else if (instructionsButton.className === "active") {
-            instructionsButton.className = 'inactive';
-            buttonPressed.className = "hide";
-            buttonInactive.className = 'displayInline';
-            instructionsDiv.className = "hide fakeConsole";
-            smallLogo.className = "displayInline";
-
-        }
-    }
-
-    pressAboutButton() {
-        let aboutButton = document.getElementById('aboutButton');
-        let buttonInactive = document.getElementById('aboutBtn');
-        let buttonPressed = document.getElementById('aboutBtnPressed');
-        let aboutDiv = document.getElementById('about');
-        let mainLogo = document.getElementById('pixelLogo');
-        let smallLogo = document.getElementById('pixelLogoSmall');
-        let pongTeamLogo = document.getElementById('pongTeamLogo');
-
-        // if (aboutButton.className === "inactive") {
-        //     aboutButton.className = 'active';
-        //     buttonPressed.className = "displayInline";
-        //     buttonInactive.className = "hide";
-        //     aboutDiv.className = "displayInline fakeConsole";
-        //     mainLogo.className = "hide";
-        //     smallLogo.className = "hide";
-        //     pongTeamLogo.className = "displayInline";
-
-        // } else if (aboutButton.className === "active") {
-        //     aboutButton.className = 'inactive';
-        //     buttonPressed.className = "hide";
-        //     buttonInactive.className = 'displayInline';
-        //     aboutDiv.className = "hide fakeConsole";
-        //     pongTeamLogo.className = "hide";
-        // }
     }
 
     pressResetButton() {

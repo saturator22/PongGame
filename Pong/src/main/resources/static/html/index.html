@@ -17,23 +17,23 @@
         <div id="items">
             <div id="controlsContainerSidebar">
 
-                <button id="newGameButton" class="inactive">
+                <button id="newGameButton" class="menuButton inactive">
                     <img id="newGameBtn" class="displayInline" src="/static/images/buttons/newGameButton.png">
                     <img id="newGameBtnPressed" class="hide" src="/static/images/buttons/newGameButtonPressed.png">
                 </button>
 
-                <button id="instructionsButton" class="inactive">
+                <button id="instructionsButton" class="menuButton inactive">
                     <img id="instructionsBtn" class="displayInline" src="/static/images/buttons/instructionsButton.png">
                     <img id="instructionsBtnPressed" class="hide" src="/static/images/buttons/instructionsButtonPressed.png">
                 </button>
 
-                <button id="aboutButton" class="inactive">
+                <button id="aboutButton" class="menuButton inactive">
                     <img id="aboutBtn" class="displayInline" src="/static/images/buttons/aboutButton.png">
                     <img id="aboutBtnPressed" class="hide" src="/static/images/buttons/aboutButtonPressed.png">
                 </button>
 
                 <button id="reset">
-                    <img id="resetGameBtn" class="displayInline" src="/static/images/buttons/restarButton.png">
+                    <img id="resetGameBtn" class="menuButton displayInline" src="/static/images/buttons/restarButton.png">
                 </button>
             </div>
         </div>
@@ -51,7 +51,7 @@
         <img id="screenFrame" src="/static/images/preparedOlderScreenCropped.png">
 
         <!-- intro screen -->
-        <div id="intro" class="screenContent">
+        <div id="intro" class="screenContent displayInline">
             <img id="pixelLogo" src="/static/images/pixelLogo.png">
         </div>
 
@@ -89,28 +89,23 @@
             </div>
         </div>
 
-        <div id="instructions" class="hide fakeConsole">
+        <!-- how2play -->
+        <div id="instructions" class="screenContent hide">
 
-            <div class="fakeScreen">
-                <p class="line1">&#91;&nbsp;&ldquo;Press start, enter nickname&rdquo;
-                    <span class="cursor1">_</span>
-                </p>
-                <p class="line2">&nbsp;&nbsp;&ldquo;Enter existing/new room id&rdquo;,
-                    <span class="cursor2">_</span>
-                </p>
-                <p class="line3">&nbsp;&nbsp;&ldquo;Use W / S keys to control&rdquo;&nbsp;&#93;
-                    <span class="cursor3">_</span>
-                </p>
-                <p class="line4">>
-                    <span class="cursor4">_</span>
+            <div> 
+                <p id="instructionsString">
+                Press start new game, enter your nickname;<br>
+                Enter existing room id or create one;<br>
+                Use W / S or UP / DOWN keys to move;<br>
+                Have fun!!!111ONeOne O N E;
                 </p>
             </div>
 
         </div>
 
-        <div id="about" class="hide fakeConsole">
+        <div id="about" class="screenContent hide">
 
-            <div class="fakeScreen">
+            <div>
                 <img id="pongTeamLogo" class="displayInline" src="/static/images/pongersTeamLogo.png">
 
                 <p class="line1">&#91;&nbsp;&ldquo;Wojciech Makiela&rdquo;
@@ -138,6 +133,7 @@
     <script src="/static/js/GameController.js"></script>
     <script src="/static/js/layoutController.js"></script>
     <script src="/static/js/ButtonModel.js"></script>
+    <script src="/static/js/ScreenContent.js"></script>
 
 </body>
 

@@ -219,6 +219,13 @@ p {
     margin: 3%;
 }
 
+/* instructions */
+#instructionsString {
+    font-size: 1.7vmin;
+    line-height: 4vmin;
+    text-align: center;
+}
+
 /* fake console */
 
 .fakeScreen {
